@@ -25,14 +25,6 @@ export default function App({ Component, pageProps }) {
     setAgeConfirmed(true);
   };
 
-  if (ageConfirmed === null) {
-    return <div>Loading...</div>;
-  }
-
-  if (!ageConfirmed) {
-    return <CheckAge checkAgeToParent={handleAgeConfirmation} />
-  }
-
   return (
   <>
   <UserContextProvider>
