@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "engines": {
-      "node": "20.11.0"
+      "node": "20.11.0",
+      "npm": "10.2.4"
     }
 
   },
