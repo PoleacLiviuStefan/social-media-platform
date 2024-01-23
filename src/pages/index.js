@@ -1,13 +1,47 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from '@/styles/Home.module.css';
+import CheckAge from '../components/CheckAge/CheckAge';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+
+  useEffect(() => {
+    // Assuming the age confirmation status is stored in a cookie
+    // This will only run on the client side
+    const ageConfirmation = document.cookie.split('; ').find(row => row.startsWith('ageConfirmed='));
+    if (ageConfirmation) {
+      setAgeConfirmed(ageConfirmation.split('=')[1] === 'true');
+    }
+  }, []);
+
+  if (!ageConfirmed) {
+    return <CheckAge onConfirm={() => setAgeConfirmed(true)} />;
+  }
+
   return (
     <>
     </>
-  )
+  );
+}
+
+export async function getServerSideProps(context) {
+  const ageConfirmed = context.req.cookies['ageConfirmed'];
+
+  if (ageConfirmed !== 'true') {
+    // Redirect to age check page if age is not confirmed
+    return {
+      redirect: {
+        destination: '/age-check',
+        permanent: false,
+      },
+    };
+  }
+
+  // Continue with normal page load
+  return { props: {} };
 }
