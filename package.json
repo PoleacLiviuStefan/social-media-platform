@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "engines": {
+      "node": "20.11.0",
+      "npm": "10.2.4"
+      },
   },
   "dependencies": {
     "@next/font": "14.1.0",
