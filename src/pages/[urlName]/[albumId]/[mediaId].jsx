@@ -45,11 +45,11 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   const fetchMediaItem = async (albumId, mediaId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/${albumId}/${mediaId}`
+        `${albumId}/${mediaId}`
       );
       setMediaItem(response.data);
       const likeResponse = await axios.get(
-        `http://localhost:3001/api/${albumId}/${mediaId}/isLiked`
+        `${albumId}/${mediaId}/isLiked`
       );
       setIsLiked(likeResponse.data.hasLiked);
     } catch (error) {
