@@ -4,12 +4,13 @@ import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '@/styles/Home.module.css';
 import CheckAge from '../components/CheckAge/CheckAge';
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [ageConfirmed, setAgeConfirmed] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     // Assuming the age confirmation status is stored in a cookie
     // This will only run on the client side
