@@ -19,7 +19,7 @@ const Navbar = () => {
             <div className="inline relative hidden lg:flex lg:w-[30rem]">
                 <button
                     onClick={handleSearch}
-                    className="absolute  top-[.5rem] left-[1rem] cursor-pointer bg-transparent"
+                    className="absolute  top-0 left-0 cursor-pointer bg-transparent border-none hover:border-none"
                 >
                     <FaSearch />
                 </button>

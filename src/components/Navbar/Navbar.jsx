@@ -82,7 +82,7 @@ const Navbar = () => {
                 <ul
                   className={`${
                     !showProfileOptions && "hidden"
-                  } mt-2 flex flex-col items-left gap-2 px-2 absolute top-[2.5rem] lg:top-[3rem] bg-[#181818]`}
+                  } mt-2 flex flex-col items-left gap-2 px-2 absolute top-[2.5rem] lg:top-[3.5rem] bg-[#181818]`}
                 >
                   <li
                     className="flex items-center gap-2 cursor-pointer"

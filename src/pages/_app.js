@@ -9,7 +9,14 @@ import { useRouter } from 'next/router';
 export default function App({ Component, pageProps }) {
   axios.defaults.baseURL = "https://www.api.thler.com/api"; //live http://localhost:3001/api
   axios.defaults.withCredentials = true;
-
+  const router = useRouter();
+  useEffect(() => {
+    // Check if the current path is the homepage ('/')
+    if (router.pathname === '/') {
+      // Navigate to the '/explore' route
+      router.push('/explore');
+    }
+  }, [router]); // Dependency array includes router to re-run effect if the route changes
 
   return (
   <>
