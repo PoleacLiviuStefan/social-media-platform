@@ -3,14 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "engines": {
-      "node": "20.11.0",
-      "npm": "10.2.4"
-    }
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@next/font": "14.1.0",
