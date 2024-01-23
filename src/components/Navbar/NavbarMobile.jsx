@@ -2,10 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { BsInstagram } from "react-icons/bs";
 import { UserContext } from "../../UserContext"; // Adjust this path to your UserContext location
-import {
-  AiOutlineMail, AiOutlineDown, AiOutlineWhatsApp
-} from "react-icons/ai";
-import { Fade } from "react-reveal";
+
 import axios from "axios";
 import {
   FaSearch, FaChevronDown, FaGoogle, FaReddit, FaTwitter, FaRegBookmark, FaBell,
@@ -72,7 +69,7 @@ const NavbarMobile = ({ disconnectFunction }) => {
         } whitespace-nowrap left-[-1rem] top-[3rem] bg-[#181818] h-screen  text-white text-[13px]`}
       >
         <div className=" mt-[2rem] flex flex-col overflow-hidden">
-          <Fade>
+       
 
             <button
               onClick={() => {
@@ -180,7 +177,7 @@ const NavbarMobile = ({ disconnectFunction }) => {
                 } bottom-5 left-0 w-full h-[1px] bg-black`}
               />
             </button>
-          </Fade>
+        
         </div>
       </div>
     </>
