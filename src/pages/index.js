@@ -17,11 +17,16 @@ export default function Home() {
     if (ageConfirmation) {
       setAgeConfirmed(ageConfirmation.split('=')[1] === 'true');
     }
+    if (ageConfirmation === 'true' && router.pathname === '/') {
+      router.replace('/explore'); // Replace with your desired route
+    }
   }, []);
 
   if (!ageConfirmed) {
     return <CheckAge onConfirm={() => setAgeConfirmed(true)} />;
   }
+  else
+    router.replace("")
 
   return (
     <>
