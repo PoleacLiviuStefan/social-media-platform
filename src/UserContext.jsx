@@ -6,7 +6,7 @@ export const UserContext = createContext({});
 export function UserContextProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const SERVER_URL="http://localhost:3001"; //https://www.api.thler.com
+    const SERVER_URL="https://www.api.thler.com"; //http://localhost:3001
     useEffect(() => {
         const fetchUser = async () => {
             try {

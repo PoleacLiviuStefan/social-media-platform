@@ -8,7 +8,7 @@ import CheckAge from '../components/CheckAge/CheckAge';
 import { useRouter } from 'next/router';
 // ... inside your Next.js page or another component
 export default function App({ Component, pageProps }) {
-  axios.defaults.baseURL = "http://localhost:3001/api"; //live https://www.api.thler.com/api
+  axios.defaults.baseURL = "https://www.api.thler.com/api"; //live http://localhost:3001/api
   axios.defaults.withCredentials = true;
   const [ageConfirmed, setAgeConfirmed] = useState(null);
   const router = useRouter();
