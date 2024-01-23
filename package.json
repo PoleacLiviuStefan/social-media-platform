@@ -2,14 +2,14 @@
   "name": "ssr-site",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.11.0",
+    "npm": "10.2.4"
+    },
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "engines": {
-      "node": "20.11.0",
-      "npm": "10.2.4"
-      },
   },
   "dependencies": {
     "@next/font": "14.1.0",
