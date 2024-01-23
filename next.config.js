@@ -3,7 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'export',
   images: {
-    domains: ["thler.com"],
     unoptimized: true,
   },
 }
