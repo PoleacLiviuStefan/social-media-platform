@@ -336,7 +336,6 @@ const EditProfilePage = ({ initialData }) => {
               placeholder="Bio"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              maxLength={60}
               className="py-2 px-4"
             />
 

@@ -21,6 +21,7 @@ const Register = () => {
   };
 
 
+
   useEffect(() => {
     // Start the timer when an error occurs
     if (error !== "" && timeLeft === 15) {
@@ -30,6 +31,14 @@ const Register = () => {
       return () => clearInterval(timerId);
     }
   }, [error]);
+
+  useEffect(() => {
+    // Reset error and stop the timer when time is up
+    if (timeLeft === 0) {
+      setError("");
+      setTimeLeft(15); // Reset the timer for the next error
+    }
+  }, [timeLeft]);
 
 
   // Error timer logic remains unchanged
