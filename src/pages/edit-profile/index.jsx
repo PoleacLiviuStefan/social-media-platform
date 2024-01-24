@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaCheck } from "react-icons/fa";
 import { BsFillPencilFill } from "react-icons/bs";
 import { UserContext } from "../../UserContext"; // Adjust the import path as needed
+import { useRouter } from "next/router";
 
 const EditProfilePage = ({ initialData }) => {
   const { user, setUser, SERVER_URL } = useContext(UserContext);
@@ -18,8 +19,9 @@ const EditProfilePage = ({ initialData }) => {
   const [isCommentsDisabled, setIsCommentsDisabled] = useState(initialData.isCommentsDisabled || false);
   const [isAccountPrivate, setIsAccountPrivate] = useState(initialData.isAccountPrivate || false);
   const [error, setError] = useState("");
+  const [deleteWindow,setDeleteWindow] = useState(false);
   const fileInputRef = useRef(null);
-
+  const router=useRouter();
   // ... rest of your component logic ...
   const isValidPassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -28,10 +30,14 @@ const EditProfilePage = ({ initialData }) => {
 
     return hasUpperCase && hasDigit && hasSpecialChar;
   };
-
+  const isValidUsername = (username) => {
+    return /^[a-zA-Z0-9_]+$/.test(username);
+  };
   const handleUpdateDetails = async (e) => {
     e.preventDefault();
     console.log(userName);
+    if(isValidUsername(userName))
+    {
     try {
       const response = await axios.put("/updateDetails", {
         newUsername: userName,
@@ -52,6 +58,9 @@ const EditProfilePage = ({ initialData }) => {
       console.error(error);
       // Handle errors (e.g., showing error message to the user)
     }
+  }
+  else
+  setError("Username must contain only letters, digits, and underscores");
   };
 
   const fetchUserInfo = async () => {
@@ -214,6 +223,26 @@ const EditProfilePage = ({ initialData }) => {
     }
   };
 
+  const handleDeleteAccount= async () =>{
+    try {
+      // Making a request to the backend to remove the profile image
+      const response = await axios.post(
+        "/deleteAccount",
+        {},
+        {
+          withCredentials: true, // Include this if your server requires cookies
+        }
+      );
+
+      if (response.data.message) {
+        console.log(response.data.message);
+        // Update user context or state as needed
+    }
+   } catch (error) {
+      console.error("Error updating profile picture:", error);
+    }
+  }
+
   return (
  <div className="relative flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
       {showImageEdits && (
@@ -246,6 +275,17 @@ const EditProfilePage = ({ initialData }) => {
           </div>
         </div>
       )}
+
+      {
+        deleteWindow && 
+        <div className="fixed flex justify-center z-50 bg-black bg-opacity-[70%] w-full h-screen">
+  <div className="absolute top-[10rem] gap-6 lg:gap-10 flex flex-col justify-center items-center bg-[#1B1E20] h-[15rem] w-[90%] lg:w-[35rem] rounded-[15px]">
+  <p>ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?</p>
+    <button onClick={()=>{handleDeleteAccount(); router.replace("explore")}} className="font-bold bg-green-500 w-[10rem] transition ease-in-out duration-[.3s]  hover:bg-green-600">CONFIRM</button>
+    <button onClick={()=>setDeleteWindow(false)} className="font-bold bg-red-500 w-[10rem] hover:bg-red-600">CANCEL</button>
+    </div>
+        </div>
+      }
       <div className="flex gap-8 flex-col items-center w-full lg:w-[65rem] py-[4rem] lg:py-[8rem]">
         <div className="relative">
           <span
@@ -285,8 +325,10 @@ const EditProfilePage = ({ initialData }) => {
               placeholder="Username"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
+              maxLength={16}
               className="py-2 px-4"
             />
+            <p className="text-red-500 font-bold"> {error==="Username must contain only letters, digits, and underscores" && "Username must contain only letters, digits, and underscores"} </p>
             <h4 className="text-gray-300 lg:text-[22px] font-bold">Bio</h4>
             <textarea
               maxLength={60}
@@ -294,6 +336,7 @@ const EditProfilePage = ({ initialData }) => {
               placeholder="Bio"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
+              maxLength={60}
               className="py-2 px-4"
             />
 
@@ -373,9 +416,9 @@ const EditProfilePage = ({ initialData }) => {
           <h4 className="text-gray-300 lg:text-[22px] font-bold">
             Delete my account
           </h4>
-          <div className="flex items-center gap-4">
+          <div  className="flex items-center gap-4">
             <p>Permanently delete account</p>{" "}
-            <button className="flex justify-center  mt-2 cursor-pointer text-white font-bold bg-[#eb9898] w-[8rem] py-2 rounded-[8px] whitespace-nowrap hover:text-white hover:bg-[#faa0a0]">
+            <button onClick={()=>setDeleteWindow(true)} className="flex justify-center  mt-2 cursor-pointer text-white font-bold bg-[#eb9898] w-[8rem] py-2 rounded-[8px] whitespace-nowrap hover:text-white hover:bg-[#faa0a0]">
               click here
             </button>
           </div>

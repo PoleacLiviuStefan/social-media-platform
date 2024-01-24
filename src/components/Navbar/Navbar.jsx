@@ -76,7 +76,7 @@ const Navbar = () => {
                 onMouseOut={() => setShowProfileOptions(false)}
               >
                 <button className="flex items-center gap-1 cursor-pointer text-white whitespace-nowrap hover:text-white">
-                  <RiAccountCircleFill className="text-[16px] lg:text-[24px]" />{" "}
+                  <RiAccountCircleFill className="text-[16px] lg:text-[24px] " />{" "}
                   {user.name}
                 </button>
                 <ul

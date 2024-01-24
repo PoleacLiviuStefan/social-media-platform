@@ -21,12 +21,12 @@ const Profile = ({ initialAlbums, userInitial, username }) => {
             {userStats.image ?
                 <img src={userStats.image.includes("google") ? userStats.image : `${SERVER_URL}/uploads/${userStats.image}`} className="rounded-[50%] w-[10rem] h-[10rem]" alt="Profile" />
                 : userStats.name ?
-                    <span className='flex items-center justify-center w-[120px] lg:w-[200px] h-[120px] lg:h-[200px] text-[110px] lg:text-[220px] rounded-[50%] bg-[#3B3B3B]'>
+                    <span className='flex items-center justify-center w-[120px] lg:w-[200px] h-[120px] lg:h-[200px] text-[110px] lg:text-[180px] rounded-[50%] bg-[#3B3B3B]'>
                         {userStats.name[0].toUpperCase()}
                     </span>
-                    : <span className='flex items-center font-mono justify-center w-[120px] lg:w-[200px] h-[120px] lg:h-[200px] text-[110px] lg:text-[220px] rounded-[50%] bg-[#3B3B3B]'>{user?.name[0].toUpperCase()}</span>
+                    : <span className='flex items-center font-mono justify-center w-[120px] lg:w-[200px] h-[120px] lg:h-[200px] text-[110px] lg:text-[180px] rounded-[50%] bg-[#3B3B3B]'>{user?.name[0].toUpperCase()}</span>
             }
-            <h1 className="mt-2 text-[28px]">{username}</h1>
+            <h1 className="mt-2 text-[28px]">{userStats.name}</h1>
             <div className="flex gap-4">
                 {user && user.name === username && (
                     <>

@@ -75,8 +75,7 @@ const Register = () => {
             email: email,
             password: password,
         });
-        router.replace("/login");
-        window.location.reload();
+        router.replace("/login"); 
     } catch (e) {
         setPassword("");
         setConfirmPassword("");
