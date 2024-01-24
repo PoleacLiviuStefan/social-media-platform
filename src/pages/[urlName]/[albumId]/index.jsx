@@ -295,7 +295,7 @@ checkIfUserLikedAlbum();
               >
                 {followedUser ? (
                   <div className="flex items-center gap-2 ">
-                    <FaCheck /> FOLLOWING
+                    <FaCheck className='text-white' /> FOLLOWING
                   </div>
                 ) : (
                   "FOLLOW"
@@ -305,29 +305,29 @@ checkIfUserLikedAlbum();
             <div className="mt-4 lg:mt-0 flex flex-col  items-center gap-1 lg:gap-4">
               <div className="flex gap-4 items-center"> 
               <span className="flex items-center gap-1 ">
-                <IoEyeSharp className="text-[18px] lg:text-[24px]" />{" "}
+                <IoEyeSharp className="text-[18px] lg:text-[24px] text-white" />{" "}
                 {viewsNumber}
               </span>
               <span className="flex items-center gap-1">
-                <MdOutlineInsertPhoto className="text-[18px] lg:text-[24px]" />
+                <MdOutlineInsertPhoto className="text-[18px] lg:text-[24px] text-white" />
                 {imageMaterial.length}
               </span>
               <span className="flex items-center gap-1">
-                <BsFillCameraReelsFill className=" text-[16px] lg:text-[20px]" />
+                <BsFillCameraReelsFill className=" text-[16px] lg:text-[20px] text-white" />
                 {content.length - imageMaterial.length}
               </span>
               </div>
               <div className="flex gap-2">
               <button
                 onClick={handleLike}
-                className={`flex  items-center border-[1px]  h-[2.5rem] hover:border-[#FDAAAA] hover:text-[#FDAAAA] ${
+                className={`flex  items-center border-[1px]  h-[2.5rem] hover:border-[#FDAAAA] hover:text-[#FDAAAA] bg-transparent ${
                   currentUserLiked ? "text-pink-400 border-pink-400" : "border-white"
                 } px-2 rounded-[8px]`}
                 disabled={user==null}
               >
               
                 {/*Likes Number*/}
-                <CiHeart className="text-[18px] lg:text-[24px]  " />
+                <CiHeart className="text-[18px] lg:text-[24px] text-white " />
                 {numberOfLikes}
                 <span className="hidden lg:inline ml-1">LIKES</span>
               </button>
@@ -338,7 +338,7 @@ checkIfUserLikedAlbum();
               >
                 {/*Likes Number*/}
                 
-                <FaRetweet  className="text-[18px] lg:text-[24px] h-[2.5rem]" />
+                <FaRetweet  className="text-[18px] lg:text-[24px] h-[2.5rem] text-white" />
                 {numberOfReposts}
                 <span className="hidden lg:inline ml-1 ">{isAlbumReposted ? "REPOSTED": "REPOST"}</span>
               </button>
@@ -347,7 +347,7 @@ checkIfUserLikedAlbum();
   disabled={isSharing} // Disable the button when sharing is in progress
   className="flex items-center gap-1 border-[1px] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] h-[2.5rem] px-2 rounded-[8px]"
 >
-  <FaShare className="text-[18px] lg:text-[26px]"/>
+  <FaShare className="text-[18px] lg:text-[26px] text-white"/>
   <span className="hidden lg:inline">SHARE</span>
 </button>
               <button onClick={handleSaveAlbum} className={`flex ${user==null && "hidden"} items-center gap-1 border-[1px] h-[2.5rem] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] ${isAlbumSaved ? "bg-red-500" : ""} rounded-[8px] px-2`}>{isAlbumSaved ? (<><FaCheck className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVED</span></>) : (<><FaRegBookmark className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVE</span></>)}</button>
@@ -392,10 +392,10 @@ checkIfUserLikedAlbum();
       />
       {!playing[index] && (
         <button
-          className="absolute z-30 text-[120px] center hidden"
+          className="absolute z-30 text-[120px] center hidden text-white"
           onClick={() => playVideo(index)}
         >
-          <FaPlay />
+          <FaPlay  />
         </button>
       )}
     </div>
@@ -404,7 +404,7 @@ checkIfUserLikedAlbum();
 
         <div className="flex flex-col">
           <h2 className="mb-4 flex items-center gap-2 text-[18px] lg:text-[28px] text-gray-300">
-            <CiChat2 className="text-[48px] text-white" />
+            <CiChat2 className="text-[48px] " />
             Comments
           </h2>
           {currentComments && currentComments.length > 0 ? (
@@ -456,7 +456,7 @@ checkIfUserLikedAlbum();
           )}
         </div>
         <p className="mt-8 flex items-center gap-2 text-[18px] lg:text-[28px] text-gray-300">
-          <MdGridView className="text-[48px]" />
+          <MdGridView className="text-[48px] " />
           See More Posts
         </p>
         <div  className="mt-[1rem] grid grid-cols-2 md:grid-cols-4  xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">

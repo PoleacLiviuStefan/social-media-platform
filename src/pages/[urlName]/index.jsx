@@ -26,7 +26,7 @@ const Profile = ({ initialAlbums, userInitial, username }) => {
                     </span>
                     : <span className='flex items-center font-mono justify-center w-[120px] lg:w-[200px] h-[120px] lg:h-[200px] text-[110px] lg:text-[180px] rounded-[50%] bg-[#3B3B3B]'>{user?.name[0].toUpperCase()}</span>
             }
-            <h1 className="mt-2 text-[28px]">{userStats.name}</h1>
+            <h1 className="mt-2 text-[28px] text-white">{userStats.name}</h1>
             <div className="flex gap-4">
                 {user && user.name === username && (
                     <>

@@ -120,7 +120,7 @@ const Navbar = () => {
               className="relative h-full"
               onClick={() => setShowSignInOptions(!showSignInOptions)}
             >
-              <a className="flex items-center whitespace-nowrap h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] hover:text-gray-400">
+              <a className="flex items-center whitespace-nowrap h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] bg-transparent  hover:text-gray-400">
                 SIGN IN <FaChevronDown />
               </a>
               <div
@@ -166,7 +166,7 @@ const Navbar = () => {
               className="lg:hidden relative h-full"
               onClick={() => setShowSignInOptions(!showSignInOptions)}
             >
-              <button className="flex items-center whitespace-nowrap w-[8rem] h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] hover:text-gray-400 ">
+              <button className="flex items-center whitespace-nowrap w-[8rem] h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] bg-transparent hover:text-gray-400 ">
                 SIGN IN <FaChevronDown />
               </button>
               <div
