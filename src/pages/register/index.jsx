@@ -31,13 +31,7 @@ const Register = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    // Reset error and stop the timer when time is up
-    if (timeLeft === 0) {
-      setError("");
-      setTimeLeft(15); // Reset the timer for the next error
-    }
-  }, [timeLeft]);
+
   // Error timer logic remains unchanged
 
   const isValidUsername = (username) => {
