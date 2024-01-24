@@ -321,7 +321,7 @@ checkIfUserLikedAlbum();
               <button
                 onClick={handleLike}
                 className={`flex  items-center border-[1px]  h-[2.5rem] hover:border-[#FDAAAA] hover:text-[#FDAAAA] bg-transparent ${
-                  currentUserLiked ? "text-pink-400 border-pink-400" : "border-white"
+                  currentUserLiked ? "text-pink-400 border-pink-400" : "border-white text-white "
                 } px-2 rounded-[8px]`}
                 disabled={user==null}
               >
@@ -334,7 +334,7 @@ checkIfUserLikedAlbum();
 
               <button
                 onClick={handleRepostAlbum}
-                className={`flex  items-center border-[1px]   h-[2.5rem] hover:border-[#FDAAAA] hover:text-[#FDAAAA] px-2 ${isAlbumReposted ? " text-pink-400 border-pink-400" : "border-white" } rounded-[8px]`} disabled={user==null}
+                className={`flex  items-center border-[1px]   h-[2.5rem] hover:border-[#FDAAAA] hover:text-[#FDAAAA] px-2 ${isAlbumReposted ? " text-pink-400 border-pink-400" : "border-white text-white" } rounded-[8px]`} disabled={user==null}
               >
                 {/*Likes Number*/}
                 
@@ -348,9 +348,9 @@ checkIfUserLikedAlbum();
   className="flex items-center gap-1 border-[1px] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] h-[2.5rem] px-2 rounded-[8px]"
 >
   <FaShare className="text-[18px] lg:text-[26px] text-white"/>
-  <span className="hidden lg:inline">SHARE</span>
+  <span className="hidden lg:inline text-white">SHARE</span>
 </button>
-              <button onClick={handleSaveAlbum} className={`flex ${user==null && "hidden"} items-center gap-1 border-[1px] h-[2.5rem] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] ${isAlbumSaved ? "bg-red-500" : ""} rounded-[8px] px-2`}>{isAlbumSaved ? (<><FaCheck className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVED</span></>) : (<><FaRegBookmark className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVE</span></>)}</button>
+              <button onClick={handleSaveAlbum} className={`flex ${user==null && "hidden"} items-center gap-1 border-[1px] h-[2.5rem] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] ${isAlbumSaved ? "bg-red-500" : ""} rounded-[8px] px-2`}>{isAlbumSaved ? (<><FaCheck className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline text-white">SAVED</span></>) : (<><FaRegBookmark className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVE</span></>)}</button>
              
               </div>
               {
@@ -429,7 +429,7 @@ checkIfUserLikedAlbum();
             : 
             <button
               onClick={() => setCommentInput(true)}
-              className="mt-8 bg-[#1B1E20] w-[15rem] border-[1px]  border-white"
+              className="mt-8 bg-[#1B1E20] w-[15rem] border-[1px]  border-white text-white"
             >
               Add a comment
             </button>
@@ -447,7 +447,7 @@ checkIfUserLikedAlbum();
                     handleAddComment();
                     fetchComments();
                   }}
-                  className="mt-4 border-white border-[1px] w-full lg:w-[10rem]"
+                  className="mt-4 border-white border-[1px] w-full lg:w-[10rem] text-white"
                 >
                   Send
                 </button>
