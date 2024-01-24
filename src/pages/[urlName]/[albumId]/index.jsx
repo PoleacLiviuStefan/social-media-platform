@@ -268,7 +268,7 @@ checkIfUserLikedAlbum();
     <div className="relative flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
       <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
         <div className="flex flex-col lg:items-start items-center w-full">
-          <h1 className="font-extrabold text-[22px] lg:[28px] xl:text-[48px]">
+          <h1 className="font-extrabold text-[22px] lg:[28px] xl:text-[48px] text-white">
             {videoTitle}
           </h1>
           <div className="flex flex-col lg:flex-row items-center my-[1rem] lg:my-[2rem] w-full justify-between items-center ">
@@ -350,7 +350,7 @@ checkIfUserLikedAlbum();
   <FaShare className="text-[18px] lg:text-[26px]"/>
   <span className="hidden lg:inline">SHARE</span>
 </button>
-              <button onClick={handleSaveAlbum} className={`flex ${user==null && "hidden"} items-center gap-1 border-[1px] h-[2.5rem] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] ${isAlbumSaved ? "bg-red-500" : ""} rounded-[8px] px-2`}>{isAlbumSaved ? (<><FaCheck className="text-[16px] lg:text-[22px]" /><span className="hidden lg:inline">SAVED</span></>) : (<><FaRegBookmark className="text-[16px] lg:text-[22px]" /><span className="hidden lg:inline">SAVE</span></>)}</button>
+              <button onClick={handleSaveAlbum} className={`flex ${user==null && "hidden"} items-center gap-1 border-[1px] h-[2.5rem] border-white hover:border-[#FDAAAA] hover:text-[#FDAAAA] ${isAlbumSaved ? "bg-red-500" : ""} rounded-[8px] px-2`}>{isAlbumSaved ? (<><FaCheck className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVED</span></>) : (<><FaRegBookmark className="text-[16px] lg:text-[22px] text-white" /><span className="hidden lg:inline">SAVE</span></>)}</button>
              
               </div>
               {
@@ -404,7 +404,7 @@ checkIfUserLikedAlbum();
 
         <div className="flex flex-col">
           <h2 className="mb-4 flex items-center gap-2 text-[18px] lg:text-[28px] text-gray-300">
-            <CiChat2 className="text-[48px]" />
+            <CiChat2 className="text-[48px] text-white" />
             Comments
           </h2>
           {currentComments && currentComments.length > 0 ? (
@@ -421,7 +421,7 @@ checkIfUserLikedAlbum();
               </div>
             ))
           ) : (
-            <p>No comments yet</p>
+            <p className='text-white'>No comments yet</p>
           )}
           {!commentInput ? (
             user==null ?
