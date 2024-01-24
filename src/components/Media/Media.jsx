@@ -88,7 +88,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
             onLoad={handleImageLoad}
           />
         ) : (
-          <Image
+          <img
             src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
             className="w-full h-full"
             onLoad={handleImageLoad}

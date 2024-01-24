@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { UserContext } from "../../UserContext"; // Adjust the import path as needed
 
 const TopUsers = ({ topUsers }) => {
@@ -17,7 +16,7 @@ const TopUsers = ({ topUsers }) => {
                 <div key={user.id} onClick={() => router.push(`/${user.name}`)} className="my-2 flex flex-col items-center">
                     {   
                         user.userImage ? 
-                        <Image 
+                        <img
                             src={user.userImage.includes("google") ? user.userImage : `${SERVER_URL}/uploads/${user.userImage}`} 
                             alt={user.name}
                             width={50} // Adjust width as needed
