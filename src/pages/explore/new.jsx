@@ -66,7 +66,7 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
           </Link>
         </li>
       </ul>
-      <div  className="grid grid-cols-2 md:grid-cols-4  xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
+      <div  className="grid justify-items-center grid-cols-2 md:grid-cols-4  xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
         {currentAlbums.map((album, index) => {
           // Filter images
           const images = album.content.filter(file => file.name.endsWith('png') || file.name.endsWith('jpeg') || file.name.endsWith('jpg'));
