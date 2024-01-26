@@ -12,7 +12,22 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
   const itemsPerPage = 15;
   const numberOfPages = Math.ceil(albums.length / itemsPerPage);
   const router = useRouter();
+  const imageFormats = [
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".bmp",
+    ".tiff",
+    ".webp",
+  ]; // Add more as needed
+  const videoFormats = [".mp4", ".webm", ".avi", ".mov", ".flv", ".mkv"]; // Add more as needed
 
+  const isImageFormat = (fileName) =>
+    imageFormats.some((ext) => fileName.toLowerCase().endsWith(ext));
+  const isVideoFormat = (fileName) =>
+    videoFormats.some((ext) => fileName.toLowerCase().endsWith(ext));
+    
   const IndexPage = () => {
     let allRefs = [];
     for (let i = 0; i < numberOfPages; i++) {
@@ -67,26 +82,30 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
         </li>
       </ul>
       <div  className="grid justify-items-center grid-cols-2 md:grid-cols-4  xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
-        {currentAlbums.map((album, index) => {
-          // Filter images
-          const images = album.content.filter(file => file.name.endsWith('png') || file.name.endsWith('jpeg') || file.name.endsWith('jpg'));
-          const videos = album.content.filter(file => file.name.endsWith('mp4'));
-                          console.log(images);
+      {currentAlbums?.map((album, index) => {
+            // Filter images and videos
+            const images = album.content.filter((file) =>
+              isImageFormat(file.name)
+            );
+            const videos = album.content.filter((file) =>
+              isVideoFormat(file.name)
+            );
+            console.log(images);
 
-          return (
-            <Media
-              key={index}
-              navigateTo={`/${album.userName}/${album.code}`} // Use the unique album code for navigation
-              thumbnail={[...images, ...videos]}
-              userName={album.userName} // Using userName from the album
-              userImage={album.userImage}
-              videoTitle={album.title}
-              viewsNumber={album.views}
-              videosNumber={videos.length}
-              photosNumber={images.length}
-            />
-          );
-        })}
+            return (
+              <Media
+                key={index}
+                navigateTo={`/${album.userName}/${album.code}`} // Use the unique album code for navigation
+                thumbnail={[...images, ...videos]}
+                userName={album.userName} // Using userName from the album
+                userImage={album.userImage}
+                videoTitle={album.title}
+                viewsNumber={album.views}
+                videosNumber={videos?.length}
+                photosNumber={images?.length}
+              />
+            );
+          })}
       </div>
       <div className="flex items-center mt-[2rem] w-full justify-center text-[26px] text-white">
         <a

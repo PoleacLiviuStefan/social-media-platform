@@ -24,7 +24,7 @@ const Navbar = () => {
                     <FaSearch />
                 </button>
                 <input
-                    className="rounded-[10px] w-[10rem] lg:w-[30rem] h-[2rem] px-[3rem]"
+                    className="rounded-[10px] w-[10rem] lg:w-[30rem] h-[2rem] px-[3rem] bg-transparent"
                     placeholder="Search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -32,7 +32,7 @@ const Navbar = () => {
                 />
             </div>
             <input
-                className="lg:hidden rounded-[10px] w-[70%] h-[2rem] px-[3rem]"
+                className="lg:hidden rounded-[10px] w-[70%] h-[2rem] px-[3rem] bg-transparent"
                 placeholder="Search"
                 value={searchQuery}
                 onClick={() => setShowFullSearch(true)}

@@ -12,7 +12,11 @@ const Profile = ({ initialAlbums, userInitial, username }) => {
     const [userStats,setUserStats] = useState(userInitial);
     // Calculate total views
     const totalViews = albums.reduce((acc, album) => acc + (album.views || 0), 0);
-
+    const imageFormats = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.webp']; // Add more as needed
+    const videoFormats = ['.mp4', '.webm', '.avi', '.mov', '.flv', '.mkv']; // Add more as needed
+    
+    const isImageFormat = (fileName) => imageFormats.some(ext => fileName.toLowerCase().endsWith(ext));
+    const isVideoFormat = (fileName) => videoFormats.some(ext => fileName.toLowerCase().endsWith(ext));
     // Client-side navigation and interaction methods here (if any)
 
     return (
@@ -43,26 +47,26 @@ const Profile = ({ initialAlbums, userInitial, username }) => {
             </div>
             <p className='mt-4 w-[80%] lg:w-[20rem] text-gray-300 text-center'>{user?.bio}</p>
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
-                {albums.map((album, index) => {
-                    const images = album.content.filter(file => file.name.endsWith('png') || file.name.endsWith('jpeg') || file.name.endsWith('jpg'));
-                    const videos = album.content.filter(file => file.name.endsWith('mp4'));
-                    const albumUserName = album.originalOwnerName || album.userName || username;
-                    const albumUserImage = album.originalOwnerImage || userStats.image;
+            {albums.map((album, index) => {
+    const images = album.content.filter(file => isImageFormat(file.name));
+    const videos = album.content.filter(file => isVideoFormat(file.name));
+    const albumUserName = album.originalOwnerName || album.userName || username;
+    const albumUserImage = album.originalOwnerImage || userStats.image;
 
-                    return (
-                        <Media
-                            key={index}
-                            navigateTo={`/${albumUserName}/${album.code}`}
-                            thumbnail={[...images, ...videos]}
-                            userName={albumUserName}
-                            userImage={albumUserImage}
-                            videoTitle={album.title}
-                            viewsNumber={album.views}
-                            videosNumber={videos.length}
-                            photosNumber={images.length}
-                        />
-                    );
-                })}
+    return (
+        <Media
+            key={index}
+            navigateTo={`/${albumUserName}/${album.code}`}
+            thumbnail={[...images, ...videos]}
+            userName={albumUserName}
+            userImage={albumUserImage}
+            videoTitle={album.title}
+            viewsNumber={album.views}
+            videosNumber={videos.length}
+            photosNumber={images.length}
+        />
+    );
+})}
             </div>
         </div>
     </div>

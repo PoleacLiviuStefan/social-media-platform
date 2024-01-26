@@ -54,7 +54,8 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
   const [isPreviewed, setIsPreviewed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { SERVER_URL } = useContext(UserContext);
-
+  const videoFormats = ['.mp4', '.webm', '.avi', '.mov', '.flv']; // Add more formats as needed
+  const isVideoFormat = (fileName) => videoFormats.some(ext => fileName.endsWith(ext));
   useEffect(() => {
     let timer;
 
@@ -82,21 +83,21 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
         className="relative flex cursor-pointer justify-center h-[9rem] w-[9.5rem] lg:w-[15rem] lg:h-[10rem] border-[1px] border-white"
       >
         {isLoading && <Spinner />}
-        {thumbnail[currentThumbnail]?.name.endsWith('.mp4') || thumbnail[currentThumbnail]?.name.endsWith('.webm') ? (
-          <VideoThumbnail
-            src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
-            className="w-full h-full"
-            onLoad={handleImageLoad}
-          />
-        ) : (
-          <img
-            src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
-            className="w-full h-full"
-            onLoad={handleImageLoad}
-            style={{ display: isLoading ? 'none' : 'block' }}
-            alt="Thumbnail"
-          />
-        )}
+        {isVideoFormat(thumbnail[currentThumbnail]?.name) ? (
+     <VideoThumbnail
+       src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
+       className="w-full h-full"
+       onLoad={handleImageLoad}
+     />
+   ) : (
+     <img
+       src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
+       className="w-full h-full"
+       onLoad={handleImageLoad}
+       style={{ display: isLoading ? 'none' : 'block' }}
+       alt="Thumbnail"
+     />
+)}
         <span className="absolute bottom-0 w-full h-[3rem] bg-gradient-to-b from-transparent to-black" />
         <div className="flex justify-between absolute bottom-2 w-[90%] text-white">
           <div className="flex gap-2">
@@ -124,7 +125,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
           userImage ?
           <img onClick={() => router.push(`/${userName}`)} src={userImage.includes("google") ? userImage : `${SERVER_URL}/uploads/${userImage}`} className="rounded-[50%] w-[35px] h-[35px] cursor-pointer" alt={userName} />
           :
-          <span onClick={() => router.push(`/${userName}`)} className='flex items-center justify-center rounded-[50%] text-[24px] w-[35px] h-[35px] bg-[#3B3B3B] cursor-pointer'>{userName[0].toUpperCase()}</span>
+          <span onClick={() => router.push(`/${userName}`)} className='flex items-center justify-center rounded-[50%] text-[24px] w-[35px] h-[35px] bg-[#3B3B3B] cursor-pointer text-white'>{userName[0].toUpperCase()}</span>
         }
         <div className="flex ml-2 flex-col">
           <Link href={`/${userName}`} className="whitespace-nowrap lg:text-[18px] font-bold text-gray-200 cursor-pointer hover:text-gray-200">
