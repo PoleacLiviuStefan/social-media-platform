@@ -41,9 +41,10 @@ const VideoThumbnail = ({ src, onLoad }) => {
       ref={videoRef}
       src={src}
       onLoadStart={onLoad}
-      className="w-full h-full"
+      className="w-full p-[1px] h-full border-none"
       muted
       loop
+      playsInline
     />
   );
 };
@@ -86,7 +87,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
         {isVideoFormat(thumbnail[currentThumbnail]?.name) ? (
      <VideoThumbnail
        src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
-       className="w-full h-full"
+       className="h-full w-full"
        onLoad={handleImageLoad}
      />
    ) : (

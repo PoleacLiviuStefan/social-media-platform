@@ -34,10 +34,16 @@ a:hover {
 }
 html {
   max-width: 100%;
+  min-width: 100%;
   max-height: 100%;
+  min-height: 100%;
   overscroll-behavior: none
 }
 body {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
   margin: 0;
   font-family: "Noto Sans",sans-serif;
   -webkit-font-smoothing: antialiased;

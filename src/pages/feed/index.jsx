@@ -51,7 +51,7 @@ const Feed = ({ initialAlbums }) => {
           })}
         </div>
         {
-          albums.length!==0 ?    <div className={`flex items-center w-full justify-center text-[26px] text-white `}>
+          albums.length!==0 ?    <div className={`flex items-center w-full justify-center mt-[2rem]  text-[26px] text-white `}>
           <a
             onClick={() => {
               if (!(currentPage === 0 || currentPage === 1)) {

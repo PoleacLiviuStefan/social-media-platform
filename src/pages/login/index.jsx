@@ -50,7 +50,7 @@ const Login = () => {
 
         </form>
 
-        <div className="flex flex-col lg:flex-row justify-between w-full">
+        <div className="flex flex-col lg:flex-row justify-between gap-4 lg:gap-0 w-full">
         <Link href="/register" className="cursor-pointer text-gray-300 hover:text-gray-300">Don&apos;t have an account? Register</Link>
         <Link href="/recover" className="cursor-pointer text-gray-300 hover:text-gray-300">Don&apos;t remember the password? Recover</Link>
         </div>
