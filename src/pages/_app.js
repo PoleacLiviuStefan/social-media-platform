@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router';
 // ... inside your Next.js page or another component
 export default function App({ Component, pageProps }) {
-  axios.defaults.baseURL = "https://www.api.thler.com/api"; //livehttp://localhost:3001/api
+  axios.defaults.baseURL = "https://www.api.thler.com/api"; //test http://localhost:3001/api
   axios.defaults.withCredentials = true;
   const router = useRouter();
   useEffect(() => {

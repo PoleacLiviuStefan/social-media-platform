@@ -39,7 +39,7 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
   return (
     <div className="flex flex-col items-center relative font-montSerrat bg-[#1b1e20] min-w-screen w-full min-h-screen h-full">
     <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
-      <h1 className="text-[18px] lg:text-[28px] font-bold">EXPLORE</h1>
+      <h1 className="text-[18px] lg:text-[28px] font-bold">NEW</h1>
       <ul className="flex my-4 gap-4 lg:text-[20px] font-extrabold text-white">
         <li className="flex flex-col">
           <Link

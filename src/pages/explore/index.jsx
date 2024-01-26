@@ -8,7 +8,6 @@ import TopUsers from "../../components/TopUsers/TopUsers";
 import { UserContext } from "../../UserContext";
 
 const Explore = ({ albums, currentPage, topUsers }) => {
-  const { SERVER_URL } = useContext(UserContext);
   const itemsPerPage = 15;
   const numberOfPages = Math.ceil(albums?.length / itemsPerPage);
   const router = useRouter();
@@ -123,9 +122,9 @@ const Explore = ({ albums, currentPage, topUsers }) => {
           <FaAngleRight />
         </a>
       </div>
-      <div className="flex items-center ">
+      <div className="flex items-center text-white">
       <FaUser className="mt-7 lg:mt-4 text-[22px] lg:text-[38px]"/> 
-      <h2 className="ml-2 mt-[2rem] text-[22px] lg:text-[32px] font-bold">Top Users</h2>
+      <h2 className="ml-2 mt-[2rem] text-[22px] lg:text-[32px] font-bold ">Top Users</h2>
     
       </div>
       <TopUsers topUsers={topUsers} />

@@ -5,7 +5,7 @@ import { MdOutlineInsertPhoto } from "react-icons/md";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { UserContext } from "../../UserContext";
-import Image from 'next/image';
+
 
 const Spinner = () => (
   <div className="w-[9.5rem] lg:w-[15rem] h-[7rem] lg:h-[10rem] border-white border-[1px]"></div>
@@ -85,6 +85,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
         {thumbnail[currentThumbnail]?.name.endsWith('.mp4') || thumbnail[currentThumbnail]?.name.endsWith('.webm') ? (
           <VideoThumbnail
             src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
+            className="w-full h-full"
             onLoad={handleImageLoad}
           />
         ) : (
@@ -121,7 +122,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
       <div className="flex items-center mt-2 w-[9.5rem] lg:w-[15rem]">
         {
           userImage ?
-          <Image onClick={() => router.push(`/${userName}`)} src={userImage.includes("google") ? userImage : `${SERVER_URL}/uploads/${userImage}`} className="rounded-[50%] w-[35px] h-[35px] cursor-pointer" alt={userName} />
+          <img onClick={() => router.push(`/${userName}`)} src={userImage.includes("google") ? userImage : `${SERVER_URL}/uploads/${userImage}`} className="rounded-[50%] w-[35px] h-[35px] cursor-pointer" alt={userName} />
           :
           <span onClick={() => router.push(`/${userName}`)} className='flex items-center justify-center rounded-[50%] text-[24px] w-[35px] h-[35px] bg-[#3B3B3B] cursor-pointer'>{userName[0].toUpperCase()}</span>
         }

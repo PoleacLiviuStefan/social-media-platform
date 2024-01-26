@@ -19,7 +19,7 @@ const Profile = ({ initialAlbums, userInitial, username }) => {
         <div className="relative flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
         <div className="flex flex-col items-center w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
             {userStats.image ?
-                <img src={userStats.image.includes("google") ? userStats.image : `${SERVER_URL}/uploads/${userStats.image}`} className="rounded-[50%] w-[10rem] h-[10rem]" alt="Profile" />
+                <img src={userStats.image.includes("google") ? userStats.image : `${SERVER_URL}/uploads/${userStats.image}`} className="rounded-[50%] w-[10rem] h-[10rem]" alt={userStats.name} />
                 : userStats.name ?
                     <span className='flex items-center justify-center w-[120px] lg:w-[200px] h-[120px] lg:h-[200px] text-[110px] lg:text-[180px] rounded-[50%] bg-[#3B3B3B]'>
                         {userStats.name[0].toUpperCase()}

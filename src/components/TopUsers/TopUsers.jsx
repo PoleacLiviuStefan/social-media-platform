@@ -19,9 +19,7 @@ const TopUsers = ({ topUsers }) => {
                         <img
                             src={user.userImage.includes("google") ? user.userImage : `${SERVER_URL}/uploads/${user.userImage}`} 
                             alt={user.name}
-                            width={50} // Adjust width as needed
-                            height={50} // Adjust height as needed
-                            className='rounded-[50%]'
+                            className='rounded-[50%] w-[50px] lg:w-[70px] h-[50px] lg:h-[70px]'
                         />
                         :
                         <span className='flex items-center justify-center w-[50px] lg:w-[70px] h-[50px] lg:h-[70px] text-[40px] lg:text-[50px] rounded-[50%] bg-[#3B3B3B]'>{user?.name[0].toUpperCase()}</span>

@@ -39,7 +39,7 @@ const Login = () => {
         <div className="relative flex flex-col lg:flex-row justify-between items-center gap-2 w-full">
                 <label className={`whitespace-nowrap ${error && "text-red-500"}`}> Your Email</label>
           
-          <input onChange={(e)=>setEmail(e.target.value)} value={email}  className={`${error && "border-[1px] border-red-500"}  px-[1rem] py-1 w-full lg:w-[80%] rounded-[8px]`} type="email"  required />
+          <input onChange={(e)=>setEmail(e.target.value)} value={email}  className={`${error && "border-[1px] border-red-500"}  px-[1rem] py-1 w-full lg:w-[80%] rounded-[8px] `} type="email"  required />
         {error && <p className="absolute top-[70px] lg:top-10 text-red-500">The credentials don&apos;t match our records</p>}
           </div>
         <div className="flex flex-col lg:flex-row justify-between items-center gap-2 w-full">

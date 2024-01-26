@@ -8,6 +8,7 @@ import { MdOutlineInsertPhoto, MdGridView } from "react-icons/md";
 import { CiHeart, CiChat2, CiBookmark } from "react-icons/ci";
 import Media from '../../../components/Media/Media'; // Update path as needed
 import { UserContext } from '../../../UserContext'; // Update path as needed
+import Link from "next/link";
 
 const MediaPage = ({ initialAlbumData }) => {
     const router = useRouter();
@@ -128,6 +129,17 @@ checkIfUserLikedAlbum();
       console.error("Error fetching comments:", error);
     }
   };
+  const handleDeleteAlbum = async () => {
+    try {
+      await axios.delete(`/album/${albumId}`, {
+        withCredentials: true
+      });
+      router.push(userName); // Redirect to home page or another appropriate page after deletion
+    } catch (error) {
+      console.error("Error deleting album:", error);
+      // Handle error (e.g., show a notification to the user)
+    }
+  };
 
   useEffect(() => {
     fetchComments();
@@ -141,7 +153,7 @@ checkIfUserLikedAlbum();
       updatedPlaying[index] = true; // Update the playing status for the clicked video
       setPlaying(updatedPlaying); // Set the new playing status
     }
-  };
+  };  
 
   const handleLike = async () => {
     setCurrentUserLiked((prev) => !prev);
@@ -287,7 +299,7 @@ checkIfUserLikedAlbum();
               </a>
               <button
                 onClick={handleFollow}
-                className={` ${(user==null || userName==user.name) && "hidden"}  ${
+                className={` ${(user==null || userName==user?.name) && "hidden"}  ${
                   !followedUser
                     ? "bg-[#eb9898] hover:bg-[#faa0a0]"
                     : "border-[#eb9898] text-gray-300 hover:border-[#eb9898]"
@@ -301,6 +313,7 @@ checkIfUserLikedAlbum();
                   "FOLLOW"
                 )}
               </button>
+              {userName==user?.name &&  <button onClick={handleDeleteAlbum} className='bg-red-500 text-white font-bold transition ease-in-out duration-[.3s] px-4 py-2 text-[14px] lg:text-[15px] border-none hover:bg-red-400 hover:border-none'>DELETE POST</button>}
             </div>
             <div className="mt-4 lg:mt-0 flex flex-col  items-center gap-1 lg:gap-4">
               <div className="flex gap-4 items-center"> 
@@ -363,33 +376,30 @@ checkIfUserLikedAlbum();
         {imageMaterial.map((img, index) => (
             <>
     <div key={index} className="hidden lg:flex items-center justify-center w-full h-[40rem] bg-black">
+      <Link href={`/${userName}/${album.code}/${img.code}`}>
         <img
             src={`${SERVER_URL}/uploads/${img.name}`}
             className="cursor-pointer object-contain max-w-full max-h-full"
-            onClick={()=>router.push(`/${userName}/${album.code}/${img.code}`)}
             alt={`Image ${index}`}
         />
+        </Link>
     </div>
-     <img
-            src={`${SERVER_URL}/uploads/${img.name}`}
-            className="cursor-pointer lg:hidden object-contain max-w-full max-h-full"
-            onClick={()=>router.push(`/${userName}/${album.code}/${img.code}`)}
-            alt={`Image ${index}`}
-        />
+
         </>
 ))}
 {content
   .filter((file) => file.name.match(/\.(mp4|mov|avi|flv|wmv)$/i)) // Filters for multiple video formats
   .map((vid, index) => (
     <div key={index} className="flex items-center justify-center w-full lg:h-[40rem] lg:bg-black">
+      <Link href={`/${userName}/${album.code}/${vid.code}`}>
       <video
         ref={(el) => (videoRefs.current[index] = el)}
         src={`${SERVER_URL}/uploads/${vid.name}`}
-        onClick={()=>router.push(`/${userName}/${album.code}/${vid.code}`)}
         className="cursor-pointer object-contain max-w-full max-h-full"
         controls
         muted
       />
+      </Link>
       {!playing[index] && (
         <button
           className="absolute z-30 text-[120px] center hidden text-white"

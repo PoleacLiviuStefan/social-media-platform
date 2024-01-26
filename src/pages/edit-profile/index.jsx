@@ -12,12 +12,13 @@ const EditProfilePage = ({ initialData }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userEmail, setUserEmail] = useState(initialData.email || "");
-  const [profileImage, setProfileImage] = useState(initialData.profileImage || "");
+  const [profileImage, setProfileImage] = useState(initialData.image || "");
   const [sent, setSent] = useState(false);
   const [hoverEdit, setHoverEdit] = useState(false);
   const [showImageEdits, setShowImageEdits] = useState(false);
-  const [isCommentsDisabled, setIsCommentsDisabled] = useState(initialData.isCommentsDisabled || false);
+  const [isCommentsDisabled, setIsCommentsDisabled] = useState(initialData.isCommentDisabled);
   const [isAccountPrivate, setIsAccountPrivate] = useState(initialData.isAccountPrivate || false);
+  const [isDownloadDisabled,setIsDownloadDisabled]=useState(false);
   const [error, setError] = useState("");
   const [deleteWindow,setDeleteWindow] = useState(false);
   const fileInputRef = useRef(null);
@@ -92,6 +93,17 @@ const EditProfilePage = ({ initialData }) => {
     setIsAccountPrivate(prev=>!prev);
     try {
       const response = await axios.post("/togglePrivacy"); // Endpoint to get user info
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+      // Handle error (e.g., redirect to login, show error message)
+    }
+  }
+  const handleDownloadAlbums = async () =>{
+    setIsDownloadDisabled(prev=>!prev);
+
+    try {
+      const response = await axios.post("/disableAlbumDownloads"); // Endpoint to get user info
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching user info:", error);
@@ -405,7 +417,7 @@ const EditProfilePage = ({ initialData }) => {
               Disable comments on my albums
             </label>
             <label className="gap-2">
-              <input type="checkbox" /> Disable download on my albums{" "}
+              <input type="checkbox" onChange={handleDownloadAlbums} /> Disable download on my albums{" "}
             </label>
             <label className="gap-2">
               <input  type="checkbox" onChange={handlePrivateAccount} checked={!isAccountPrivate} /> Make my account Private{" "}
@@ -441,6 +453,7 @@ export async function getServerSideProps(context) {
     });
 
     initialData = response.data;
+    console.log(initialData);
     console.log("Initial data:", response.data);
   } catch (error) {
     console.error('Error fetching initial data:', error);
