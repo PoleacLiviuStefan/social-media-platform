@@ -95,7 +95,7 @@ const Register = () => {
 
 
   return (
-    <div className="relative flex flex-col justify-center lg:justify-start items-center w-screen h-screen font-montSerrat bg-[#1b1e20]">
+    <div className="relative flex flex-col justify-center lg:justify-start items-center w-full min-w-screen h-full min-h-screen font-montSerrat bg-[#1b1e20]">
       {/* Page content */}
       <div className="flex flex-col items-center w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
         <div className="relative flex flex-col items-start gap-4 bg-[#0f1112] rounded-[15px]  p-[2rem] h-full w-[90%] lg:w-[80%]">
