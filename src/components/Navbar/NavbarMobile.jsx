@@ -82,10 +82,11 @@ const NavbarMobile = ({ disconnectFunction }) => {
               onMouseLeave={() => {
                 setElementList(-1);
               }}
-              className="flex  gap-2 relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818]"
+              className="relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
+                <div className="flex gap-2">
               <RiAccountCircleFill /> Profile{" "}
-
+                </div>
             </button>
 
             <button
@@ -99,19 +100,21 @@ const NavbarMobile = ({ disconnectFunction }) => {
               onMouseLeave={() => {
                 setElementList(-1);
               }}
-              className="flex gap-2 relative tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818]"
+              className="relative tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
+                <div className="flex gap-2">
               <FiUpload/> Upload
-
+                </div>
             </button>
 
      
               <button         onClick={()=>{
                 router.push("/feed")
                 setShowMobileMenu(false);
-            }}  className="flex gap-2 relative tracking-[5px] px-[.5rem]  py-[1.5rem] flex bg-[#181818]">
+            }}  className=" relative tracking-[5px] px-[.5rem]  py-[1.5rem] flex bg-[#181818] whitespace-nowrap overflow-hidden">
+                <div className="flex gap-2">
                <MdOutlineRssFeed/> Feed
-
+                </div>
 
               </button>
           
@@ -119,8 +122,10 @@ const NavbarMobile = ({ disconnectFunction }) => {
               <button          onClick={()=>{
             router.push("/liked-albums")
             setShowMobileMenu(false);
-        }} className="relative  flex gap-2 tracking-[4px] px-[.5rem]   py-[1.5rem] bg-[#181818]">
+        }} className="relative  tracking-[4px] px-[.5rem]   py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden" >
+            <div className="flex gap-2">
                 <FaHeart /> Liked{" "}
+                </div>
 
   
               </button>
@@ -128,18 +133,21 @@ const NavbarMobile = ({ disconnectFunction }) => {
               <button          onClick={()=>{
             router.push("/saved-albums")
             setShowMobileMenu(false);
-        }} className="relative  flex gap-2 tracking-[4px] px-[.5rem]   py-[1.5rem] bg-[#181818]">
+        }} className="relative  tracking-[4px] px-[.5rem]   py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden">
+            <div className="flex gap-2">
                 <FaRegBookmark /> Saved{" "}
-
+            </div>
   
               </button>
 
             <button
               onClick={() =>{router.push("/notifications"); setShowMobileMenu(false);}}
 
-              className="flex items-center gap-2 relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818]"
+              className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
+                <div className="flex gap-2">
               <FaBell /> Notifications
+              </div>
               <span
                 className={`absolute  ${
                   elementList === 6
@@ -152,9 +160,11 @@ const NavbarMobile = ({ disconnectFunction }) => {
             <button
               onClick={() =>{router.push("/edit-profile"); setShowMobileMenu(false);}}
 
-              className="flex items-center gap-2  relative tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818]"
+              className="flex items-center   relative tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
+                <div className="flex gap-2">
               <FaGear />Settings
+              </div>
               <span
                 className={`absolute  ${
                   elementList === 6
@@ -166,9 +176,12 @@ const NavbarMobile = ({ disconnectFunction }) => {
             <button
               onClick={disconnectFunction}
 
-              className="flex gap-2 items-center relative  text-red-500 tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818]"
+              className="flex items-center relative  text-red-500 tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
+                <div className="flex gap-2">
               <IoExit /> Disconnect
+
+              </div>
               <span
                 className={`absolute  ${
                   elementList === 6

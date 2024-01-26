@@ -106,6 +106,7 @@ export async function getServerSideProps(context) {
       });
 
       initialAlbums = response.data.albums || [];
+      console.log("eqwdsa",response.data)
   } catch (error) {
       console.error('Error fetching albums:', error);
   }
