@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
     // Check if the current path is the homepage ('/')
     if (router.pathname === '/') {
       // Navigate to the '/explore' route
-      router.push('/explore');
+      router.replace('/explore');
     }
   }, [router]); // Dependency array includes router to re-run effect if the route changes
 
