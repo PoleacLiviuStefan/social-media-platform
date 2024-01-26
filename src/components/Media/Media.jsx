@@ -77,10 +77,10 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
 
   return (
     <div className=" w-[9.5rem] lg:w-[15rem] h-[13rem]">
+      <Link href={navigateTo}>
       <div
         onMouseOver={() => setIsPreviewed(true)}
         onMouseOut={() => setIsPreviewed(false)}
-        onClick={() => router.push(navigateTo)}
         className="relative flex cursor-pointer justify-center h-[9rem] w-[9.5rem] lg:w-[15rem] lg:h-[10rem] border-[1px] border-white"
       >
         {isLoading && <Spinner />}
@@ -121,6 +121,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
           </div>
         </div>
       </div>
+      </Link>
       <div className="flex items-center mt-2 w-[9.5rem] lg:w-[15rem]">
         {
           userImage ?
