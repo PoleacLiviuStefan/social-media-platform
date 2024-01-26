@@ -38,7 +38,7 @@ const Explore = ({ albums, currentPage, topUsers }) => {
           }}
           className={`${
             currentPage === i + 1 ? "bg-[#ff0000]" : "bg-black"
-          } text-white cursor-pointer px-4 py-1 hover:bg-[#ff0000] hover:text-white`}
+          } text-white font-bold cursor-pointer px-2 lg:px-4 py-1 hover:bg-[#ff0000] hover:text-white text-[15px]`}
         >
           {i + 1}
         </a>
@@ -120,7 +120,7 @@ const Explore = ({ albums, currentPage, topUsers }) => {
               currentPage === 1
                 ? "text-gray-400 hover:text-gray-400"
                 : "text-white hover:text-white hover:bg-[#ff0000]"
-            } bg-black px-2 py-2`}
+            } bg-black px-2 py-1`}
           >
             <FaAngleLeft />
           </a>
@@ -137,7 +137,7 @@ const Explore = ({ albums, currentPage, topUsers }) => {
               currentPage === numberOfPages
                 ? "text-gray-400 hover:text-gray-400"
                 : "text-white hover:text-white hover:bg-[#ff0000]"
-            } bg-black px-2 py-2`}
+            } bg-black px-2 py-1`}
           >
             <FaAngleRight />
           </a>

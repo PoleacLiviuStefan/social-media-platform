@@ -18,7 +18,7 @@ const Feed = ({ initialAlbums }) => {
         <a
           key={i}
           onClick={() => router.push(`/feed?page=${i + 1}`)}
-          className={`${currentPage === i + 1 ? "bg-[#ff0000]" : "bg-black"} text-white cursor-pointer px-4 py-1 hover:bg-[#ff0000]`}
+          className={`${currentPage === i + 1 ? "bg-[#ff0000]" : "bg-black"} text-white font-bold cursor-pointer  px-2 lg:px-4 py-1 text-[15px] hover:bg-[#ff0000]`}
         >
           {i + 1}
         </a>
@@ -63,7 +63,7 @@ const Feed = ({ initialAlbums }) => {
               currentPage === 0 || currentPage === 1
                 ? "text-gray-400 hover:text-gray-400"
                 : "text-white hover:text-white hover:bg-[#ff0000]"
-            } bg-black px-2 py-2 `}
+            } bg-black px-2 py-1 `}
           >
             <FaAngleLeft />
           </a>
@@ -79,7 +79,7 @@ const Feed = ({ initialAlbums }) => {
               currentPage === numberOfPages
                 ? "text-gray-400 hover:text-gray-400"
                 : "text-white hover:text-white hover:bg-[#ff0000]"
-            } bg-black px-2 py-2 `}
+            } bg-black px-2 py-1 `}
           >
             <FaAngleRight />
           </a>
