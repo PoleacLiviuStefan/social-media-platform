@@ -55,6 +55,7 @@ h1 {
 
 input {
   background-color: transparent;
+  border: 1px solid white;
 }
 
 button {
