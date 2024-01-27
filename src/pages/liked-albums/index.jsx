@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import axios from "axios";
 import Media from "../../components/Media/Media";
 import { useRouter } from "next/router";
 import { UserContext } from "../../UserContext"; // Adjust the import path as needed
 
-const LikedAlbums = ({ initialAlbums }) => {
+const LikedAlbums = () => {
   const [albums, setAlbums] = useState(initialAlbums);
   const router = useRouter();
   const { user, setUser, SERVER_URL } = useContext(UserContext);
@@ -19,10 +19,29 @@ const LikedAlbums = ({ initialAlbums }) => {
   ]; // Add more as needed
   const videoFormats = [".mp4", ".webm", ".avi", ".mov", ".flv", ".mkv"]; // Add more as needed
 
+  useEffect(() => {
+    const fetchLikedAlbums = async () => {
+      try {
+        const response = await axios.get(`/getLikedAlbums`, {
+          withCredentials: true // This is important to include cookies
+        });
+        setAlbums(response.data || []);
+      } catch (error) {
+        console.error("Error fetching albums:", error);
+      }
+    };
+
+    fetchLikedAlbums();
+  }, []); // Empty dependency array ensures this runs once after component mounts
+
+
   const isImageFormat = (fileName) =>
     imageFormats.some((ext) => fileName?.toLowerCase().endsWith(ext));
   const isVideoFormat = (fileName) =>
     videoFormats.some((ext) => fileName?.toLowerCase().endsWith(ext));
+
+
+
 
   return (
     <div className="relative flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
@@ -61,30 +80,6 @@ const LikedAlbums = ({ initialAlbums }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  let initialAlbums = [];
 
-  // Extract protocol and host from the incoming request to construct the full URL
-
-  try {
-    // Extract cookies from the incoming request
-    const cookies = context.req.headers.cookie;
-
-    const response = await axios.get("/getLikedAlbums", {
-      // Include the cookies in the header of your Axios request
-      headers: {
-        Cookie: cookies || "", // Forward the cookies, or send an empty string if there are none
-      },
-    });
-    console.log(response.data);
-    initialAlbums = response.data || [];
-  } catch (error) {
-    console.error("Error fetching albums:", error);
-  }
-
-  return {
-    props: { initialAlbums },
-  };
-}
 
 export default LikedAlbums;
