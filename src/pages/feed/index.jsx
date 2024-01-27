@@ -106,7 +106,7 @@ export async function getServerSideProps(context) {
       // Extract cookies from the incoming request
       const cookies = context.req.headers.cookie;
 
-      const response = await axios.get(`https://www.api.waygital.ro/api/getMediaFromFollowing`, {
+      const response = await axios.post(`/getMediaFromFollowing`, {
           // Include the cookies in the header of your Axios request
           headers: {
               Cookie: cookies || "", // Forward the cookies, or send an empty string if there are none
