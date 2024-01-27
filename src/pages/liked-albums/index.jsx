@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { UserContext } from "../../UserContext"; // Adjust the import path as needed
 
 const LikedAlbums = () => {
-  const [albums, setAlbums] = useState(initialAlbums);
+  const [albums, setAlbums] = useState([]);
   const router = useRouter();
   const { user, setUser, SERVER_URL } = useContext(UserContext);
   const imageFormats = [
