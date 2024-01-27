@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from 'next/router';
 
-const Navbar = () => {
+const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [showFullSearch, setShowFullSearch] = useState(false);
     const router = useRouter();
     
     const handleSearch = () => {
@@ -15,32 +14,34 @@ const Navbar = () => {
     };
 
     return (
-        <div className='flex justify-center w-full'>
-            <div className="inline relative hidden lg:flex lg:w-[30rem]">
+        <div  className='flex justify-center lg:items-center w-full h-full py-[2rem]'>
+            <div className="inline relative hidden lg:items-center lg:flex lg:w-[30rem]">
                 <button
                     onClick={handleSearch}
-                    className="absolute  top-0 left-0 cursor-pointer bg-transparent border-none hover:border-none"
+                    className="absolute  top-[-1px] left-0 cursor-pointer bg-transparent border-none hover:border-none"
                 >
                     <FaSearch />
                 </button>
                 <input
-                    className="rounded-[10px] w-[10rem] lg:w-[30rem] h-[2rem] px-[3rem] bg-transparent"
+                    className="rounded-[10px] w-[15rem] lg:w-[30rem] h-[2rem] px-[3rem] bg-transparent"
                     placeholder="Search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                 />
             </div>
+       
+           
             <input
-                className="lg:hidden rounded-[10px] w-[70%] h-[2rem] px-[3rem] bg-transparent"
+                className=" lg:hidden rounded-[10px] w-[90%] h-[2rem] px-[3rem] bg-transparent"
                 placeholder="Search"
                 value={searchQuery}
-                onClick={() => setShowFullSearch(true)}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
             />
+       
         </div>
     );
 }
 
-export default Navbar;
+export default SearchBar;

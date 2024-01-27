@@ -19,7 +19,7 @@ const SearchResults = ({ albums, query }) => {
                         router.push(`/search/${query}?page=${i + 1}`);
                         setCurrentPage(i + 1);
                     }}
-                    className={`${currentPage === i + 1 ? "bg-[#ff0000]" : "bg-black"} text-white lg:text-[22px] cursor-pointer ease-in-out duration-[.3s] px-4 py-1 hover:bg-[#ff0000] hover:text-white`}
+                    className={`${currentPage === i + 1 ? "bg-[#ff0000]" : "bg-black"} text-white lg:text-[22px] cursor-pointer ease-in-out duration-[.3s] text-[15px] px-2 py-1 hover:bg-[#ff0000] hover:text-white`}
                 >
                     {i + 1}
                 </a>
@@ -32,7 +32,7 @@ const SearchResults = ({ albums, query }) => {
         <div className={`flex flex-col items-center relative font-montSerrat bg-[#1b1e20] min-w-screen w-full min-h-screen h-full`}>
             <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
                 <h1 className="text-[18px] lg:text-[28px] font-bold">Search Results for &quot;{query}&quot;</h1>
-                <div className="flex mt-10 gap-10 justify-center lg:justify-start flex-wrap w-full">
+                <div  className="mt-4 grid justify-items-center grid-cols-2 md:grid-cols-4  xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
                     {albums.map((album, index) => {
                         const images = album.content.filter(file => file.name.endsWith('png') || file.name.endsWith('jpeg') || file.name.endsWith('jpg'));
                         const videos = album.content.filter(file => file.name.endsWith('mp4'));
@@ -51,7 +51,7 @@ const SearchResults = ({ albums, query }) => {
                         );
                     })}
                 </div>
-                <div className="flex items-center w-full justify-center text-[30px] text-white ">
+                <div className="mt-[2rem] flex items-center w-full justify-center text-[30px] text-white ">
                     <FaAngleLeft
                         onClick={() => {
                             if (currentPage > 1) {
@@ -80,8 +80,17 @@ const SearchResults = ({ albums, query }) => {
 export async function getServerSideProps(context) {
     const query = context.params.query;
     let albums = [];
+
+    // Extract cookies from the context
+    const cookies = context.req.headers.cookie || '';
+
     try {
-        const response = await axios.get(`/search?query=${query}`);
+        const response = await axios.get(`/search?query=${query}`, {
+            // Forward the cookies in the request
+            headers: {
+                Cookie: cookies
+            }
+        });
         albums = response.data.albums || [];
     } catch (error) {
         console.error('Error fetching search results:', error);
@@ -91,5 +100,6 @@ export async function getServerSideProps(context) {
         props: { albums, query },
     };
 }
+
 
 export default SearchResults;

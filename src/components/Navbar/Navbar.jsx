@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -21,6 +21,26 @@ const Navbar = () => {
   const { user, loading, SERVER_URL } = useContext(UserContext);
   const [showSignInOptions, setShowSignInOptions] = useState(false);
   const [showProfileOptions, setShowProfileOptions] = useState(false);
+  const [showFullSearch,setShowFullSearch] = useState(false);
+  const [fullSearchHistory,setFullSearchHistory]=useState([])
+
+  useEffect(() => {
+    // Fetch the search history when the component mounts
+    const fetchSearchHistory = async () => {
+      try {
+        // Replace 'your-endpoint' with the actual endpoint for fetching search history
+        const response = await axios.get(`/getSearchHistory`);
+        setFullSearchHistory(response.data.searchHistory);
+        console.log(response.data.searchHistory);
+      } catch (error) {
+        console.error('Failed to fetch search history:', error);
+        // Handle errors as needed
+      }
+    };
+
+    fetchSearchHistory();
+  }, [showFullSearch]); // The empty dependency array ensures this runs once when the component mounts
+
 
   const handleDisconnect = async () => {
     try {
@@ -45,8 +65,45 @@ const Navbar = () => {
     window.open(`${SERVER_URL}/api/twitter`, "_self");
   };
 
+  const handleSearch = (oldSearch) =>{
+      router.push(`/search/${encodeURIComponent(oldSearch)}`);
+   
+   
+};
+
+const handleDeleteHistoryItem = async (itemId) => {
+  try {
+    // Replace '/api/searchHistory' with your actual API endpoint
+    const response = await axios.delete(`/searchHistory/${itemId}`);
+    console.log(response.data); // Handle the response as needed
+    const updatedItems = [...fullSearchHistory];
+    const indexToDelete = updatedItems.findIndex(item => item === itemId);
+    updatedItems.splice(indexToDelete, 1);
+    setFullSearchHistory(updatedItems);
+    // Optionally, update the state to reflect the change in the UI
+  } catch (error) {
+    console.error('Error deleting search history item:', error);
+  }
+};
+
+
+  useEffect(() => {
+    // This function will be called whenever the path changes.
+    const handleRouteChange = () => {
+      setShowFullSearch(false);
+    };
+
+    // Listen for route changes
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
-    <div className="z-50 flex justify-center text-gray-300 font-montSerrat fixed bg-[#181818] top-0 left-0 w-full h-[3rem] lg:h-[4rem]">
+    <div className={`z-50 flex justify-center text-gray-300 font-montSerrat fixed bg-[#181818] top-0 left-0 w-full lg:h-[4rem]  ${showFullSearch ? "h-screen" : "h-[3rem]"}`}>
       <div className="hidden lg:flex justify-between items-center w-full lg:w-[55rem] h-full">
         <Link
           href="/explore" 
@@ -160,13 +217,13 @@ const Navbar = () => {
 
       {loading ? (
             <div>Loading...</div>
-          ) : user ? <div className="relative w-[2rem] h-full"><NavbarMobile disconnectFunction={handleDisconnect}   /></div>
+          ) : user ? <div className={`relative w-[2rem] h-full  ${showFullSearch && "hidden"}` }><NavbarMobile disconnectFunction={handleDisconnect}   /></div>
           : (
             <div
-              className="lg:hidden relative h-full"
+              className={`relative h-full ${showFullSearch && "hidden"}`}
               onClick={() => setShowSignInOptions(!showSignInOptions)}
             >
-              <button className="flex items-center whitespace-nowrap w-[8rem] h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] bg-transparent hover:text-gray-400 ">
+              <button className={`flex items-center nowrap whitespace-nowrap text-[14px]  h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] bg-transparent hover:text-gray-400  `}>
                 SIGN IN <FaChevronDown />
               </button>
               <div
@@ -174,7 +231,7 @@ const Navbar = () => {
                   !showSignInOptions && "hidden"
                 } text-white`}
               >
-                <ul className="flex flex-col justify-between w-[8rem] h-full py-4">
+                <ul className="flex flex-col justify-between w-[6.8rem] h-full py-4">
                   <li onClick={handleSignInGoogle} className="flex items-center gap-2 cursor-pointer p-4">
                     <FaGoogle />
                     Google
@@ -199,12 +256,35 @@ const Navbar = () => {
             </div>
           )
       }
-    
-            <SearchBar />
-          <Link href="/explore" className="" >LOGO</Link>
+    {showFullSearch ?
+    <div className='flex flex-col justify-start  items-center lg:hidden w-full h-full py-[2rem]'>
+        <button onClick={()=>setShowFullSearch(false)} className='font-bold border-white border-[1px] border-[#eb9898]  px-8 text-[13px]'>CLOSE</button>
+            <SearchBar  />
+            <ul className="w-full">
+  {fullSearchHistory.map((historyItem, index) => (
+    <li key={index} className="relative flex items-center justify-between w-full bg-black bg-black rounded-[5px] px-4 py-2">
+      <span onClick={() => handleSearch(historyItem)}>{historyItem}</span>
+      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300" />
+      <button onClick={(event) => {
+        event.stopPropagation(); // Stop propagation here
+        handleDeleteHistoryItem(historyItem);
+      }} className="px-1 py-0 bg-black">X</button>
+    </li>
+  ))}
+</ul>
+    </div>
+            :
+            <button onClick={()=>setShowFullSearch(true)} className="flex  w-full  items-center gap-2"><FaSearch/> Search</button>
+
+    }
+          <Link href="/explore" className={`${showFullSearch && "hidden"}`} >LOGO</Link>
       </div>
     </div>
   );
 };
+
+
+
+
 
 export default Navbar;

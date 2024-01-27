@@ -102,7 +102,7 @@ const Register = () => {
           <h1 className="text-[24px]">Register</h1>
           <form
             onSubmit={(e) => handleRegister(e)}
-            className="flex flex-col gap-10 w-full text-gray-300"
+            className="flex flex-col gap-4 lg:gap-10 w-full text-gray-300"
           >
             <div className="flex flex-col lg:flex-row justify-between items-center gap-2 w-full ">
               <label className="whitespace-nowrap"> Your Username</label>
@@ -183,7 +183,7 @@ const Register = () => {
 
             <button
               type="submit"
-              className="border-[1px] font-bold text-[18px] py-2 rounded-[8px] border-[1px] border-white ease-in-out duration-[.3s] hover:bg-[#0d0d0d]  hover:border-[#faa0a0]"
+              className="mt-4 border-[1px] font-bold text-[18px] py-2 rounded-[8px] border-[1px] border-white ease-in-out duration-[.3s] hover:bg-[#0d0d0d]  hover:border-[#faa0a0]"
             >
               Create Account
             </button>

@@ -35,7 +35,7 @@ const Login = () => {
                 {error && <Notification messageStatusFrom="Login" />}
                 <div className="relative flex flex-col items-start gap-4 bg-[#0f1112] rounded-[15px]  p-[2rem] h-full w-[90%] lg:w-[80%]">
       <h1 className="text-[24px] text-white">Login</h1>
-        <form onSubmit={(e)=>handleLogin(e)} className="flex flex-col gap-10 w-full text-gray-300">
+        <form onSubmit={(e)=>handleLogin(e)} className="flex flex-col gap-4 lg:gap-10 w-full text-gray-300">
         <div className="relative flex flex-col lg:flex-row justify-between items-center gap-2 w-full">
                 <label className={`whitespace-nowrap ${error && "text-red-500"}`}> Your Email</label>
           
@@ -46,7 +46,7 @@ const Login = () => {
                 <label className="whitespace-nowrap"> Password </label>
           <input onChange={(e)=>setPassword(e.target.value)} value={password}  className="px-[1rem] py-1 w-full lg:w-[80%] rounded-[8px] bg-transparent" type="password"  required />
           </div>
-        <button type="submit" className="border-[1px] font-bold lg:text-[18px] py-2 rounded-[8px] ease-in-out duration-[.3s] hover:bg-[#0d0d0d] border-[1px] border-white hover:border-[#faa0a0]">Login</button>
+        <button type="submit" className="mt-4 border-[1px] font-bold lg:text-[18px] py-2 rounded-[8px] ease-in-out duration-[.3s] hover:bg-[#0d0d0d] border-[1px] border-white hover:border-[#faa0a0]">Login</button>
 
         </form>
 
