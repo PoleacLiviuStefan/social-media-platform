@@ -443,7 +443,7 @@ const MediaPage = ({ initialAlbumData }) => {
           <>
             <div
               key={index}
-              className="hidden lg:flex items-center justify-center w-full h-[40rem] bg-black"
+              className=" lg:flex items-center justify-center w-full h-[40rem] bg-black"
             >
               <Link href={`/${userName}/${album.code}/${img.code}`}>
                 <img
@@ -473,7 +473,7 @@ const MediaPage = ({ initialAlbumData }) => {
               </Link>
               {!playing[index] && (
                 <button
-                  className="absolute z-30 text-[120px] center hidden text-white"
+                  className="absolute z-30 text-[120px] center text-white"
                   onClick={() => playVideo(index)}
                 >
                   <FaPlay />
