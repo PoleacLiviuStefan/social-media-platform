@@ -4,7 +4,7 @@ import Media from "../../components/Media/Media"; // Adjust the import path as n
 import { useRouter } from 'next/router';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-const Feed = ({ initialAlbums }) => {
+const Feed = () => {
   const [albums, setAlbums] = useState(initialAlbums);
   const router = useRouter();
   const currentPage = parseInt(router.query.page) || 1;
@@ -33,6 +33,20 @@ const Feed = ({ initialAlbums }) => {
     return pageLinks;
   };
 
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`/getMediaFromFollowing`);
+        setAlbums(response.data.albums || []);
+      } catch (error) {
+        console.error('Error fetching albums:', error);
+      }
+      setLoading(false);
+    };
+
+    fetchAlbums();
+  }, []); // Dependency array is empty, so this runs once on mount
   return (
     <div className="flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
       <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
@@ -100,29 +114,7 @@ const Feed = ({ initialAlbums }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  let initialAlbums = [];
-  try {
-      // Extract cookies from the incoming request
-      const cookies = context.req.headers.cookie;
 
-      const response = await axios.post(`/getMediaFromFollowing`, {
-          // Include the cookies in the header of your Axios request
-          headers: {
-              Cookie: cookies || "", // Forward the cookies, or send an empty string if there are none
-          },
-      });
-
-      initialAlbums = response.data.albums || [];
-      console.log("eqwdsa",response.data)
-  } catch (error) {
-      console.error('Error fetching albums:', error);
-  }
-
-  return {
-      props: { initialAlbums },
-  };
-}
 
 
 export default Feed;
