@@ -33,7 +33,19 @@ const Feed = ({albums}) => {
     return pageLinks;
   };
 
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const response = await axios.get(`/getMediaFromFollowing`);
+        setAlbums(response.data.albums || []);
+      } catch (error) {
+        console.error('Error fetching albums:', error);
+      }
+  
+    };
 
+    fetchAlbums();
+  }, []); // Dependency array is empty, so this runs once on mount
   return (
     <div className="flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
       <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
@@ -101,28 +113,7 @@ const Feed = ({albums}) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const { req } = context;
-  const cookies = req.headers.cookie || ''; // Extract cookies from the request
 
-  let albums = [];
-  try {
-    const response = await axios.get(`/getMediaFromFollowing`, {
-      headers: {
-        Cookie: cookies,
-      },
-      // Additional config if needed
-    });
-    albums = response.data.albums || [];
-  } catch (error) {
-    console.error('Error fetching albums:', error);
-    // Handle error as needed
-  }
-
-  return {
-    props: { albums },
-  };
-}
 
 
 export default Feed;
