@@ -25,7 +25,7 @@ const LikedAlbums = () => {
         const response = await axios.get(`/getLikedAlbums`, {
           withCredentials: true // This is important to include cookies
         });
-        setAlbums(response.data || []);
+        setAlbums(response.data);
       } catch (error) {
         console.error("Error fetching albums:", error);
       }

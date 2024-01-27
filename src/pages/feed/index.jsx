@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Feed = () => {
-  const [albums, setAlbums] = useState(initialAlbums);
+  const [albums, setAlbums] = useState();
   const router = useRouter();
   const currentPage = parseInt(router.query.page) || 1;
   const itemsPerPage = 15; // Assuming 15 albums per page
