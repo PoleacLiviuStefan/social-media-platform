@@ -8,7 +8,7 @@ export default function Document() {
       <meta name="viewport" content="width=device-width, minimum-scale=1,maximum-scale=5" />
       <meta name="theme-color" content="#000000" />
       <meta id="meta-description" name="description"
-    content="Curs extensii gene 1D 2D 3D in Bucuresti realizate de Lorena Danoiu . Finalizarea cursului vine cu o diploma recunoscuta international. " />
+    content="Descriere site " />
       <link rel="icon" href="../../../public/next.svg" />
       <title>Titlu pagina</title>
       </Head>
