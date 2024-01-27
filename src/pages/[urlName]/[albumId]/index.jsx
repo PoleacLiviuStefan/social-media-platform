@@ -443,7 +443,7 @@ const MediaPage = ({ initialAlbumData }) => {
           <>
             <div
               key={index}
-              className="   items-center justify-center w-full h-[40rem] bg-black"
+              className="flex   items-center justify-center w-full h-[40rem] bg-black"
             >
               <Link href={`/${userName}/${album.code}/${img.code}`}>
                 <img
