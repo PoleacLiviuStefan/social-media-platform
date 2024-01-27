@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import Media from "../../components/Media/Media"; // Adjust the import path as needed
 import { useRouter } from 'next/router';
