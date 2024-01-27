@@ -1,8 +1,26 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import axios from 'axios';
 import Media from "../../components/Media/Media"; // Adjust the import path as needed
 
-const LikedAlbums = ({ albums }) => {
+const SavedAlbums = () => {
+    const [albums, setAlbums] = useState([]);
+
+    useEffect(() => {
+        const fetchSavedAlbums = async () => {
+            try {
+                const response = await axios.get('/getSavedAlbums', {
+                    withCredentials: true // Necessary for including cookies
+                });
+                setAlbums(response.data.savedAlbums || []);
+            } catch (error) {
+                console.error('Error fetching saved albums:', error);
+                // Handle error as needed
+            }
+        };
+
+        fetchSavedAlbums();
+    }, []);
+
     return (
         <div className="relative flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
             <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
@@ -39,27 +57,6 @@ const LikedAlbums = ({ albums }) => {
     );
 };
 
-export async function getServerSideProps(context) {
-    const { req } = context;
-    const cookies = req.headers.cookie;
-
-    let albums = [];
-    try {
-        const response = await axios.get('/getSavedAlbums', {
-            headers: {
-                Cookie: cookies,
-            },
-        });
-        albums = response.data.savedAlbums || [];
-    } catch (error) {
-        console.error('Error fetching saved albums:', error);
-        // Handle error as needed
-    }
-
-    return {
-        props: { albums },
-    };
-}
 
 
-export default LikedAlbums;
+export default SavedAlbums;

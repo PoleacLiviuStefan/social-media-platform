@@ -35,7 +35,7 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
         <a
           key={i}
           onClick={() => {
-            router.push(`/explore?page=${i + 1}`);
+            router.push(`/explore/new?page=${i + 1}`);
             window.scrollTo({ top: 0, left: 0 });
           }}
           className={`${currentPage === i + 1 ? "bg-[#ff0000]" : "bg-black"} text-white font-bold cursor-pointer  px-2 lg:px-4 py-1 text-[15px] hover:bg-[#ff0000] hover:text-white`}
@@ -111,7 +111,7 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
         <a
           onClick={() => {
             if (currentPage > 1) {
-              router.push(`#/explore?page=${currentPage - 1}`);
+              router.push(`#/explore/new?page=${currentPage - 1}`);
               setPage(currentPage - 1);
               window.scrollTo({top:0,left:0});
             }
@@ -128,7 +128,7 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
         <a
           onClick={() => {
             if (currentPage < numberOfPages) {
-                router.push(`#/explore?page=${currentPage + 1}`);
+                router.push(`#/explore/new?page=${currentPage + 1}`);
               setPage(currentPage + 1);
               window.scrollTo({top:0,left:0});
             }

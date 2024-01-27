@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import Media from '../../components/Media/Media'; // Update the import path as needed
 import { useRouter } from 'next/router';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-const SearchResults = ({ albums, query }) => {
+const SearchResults = () => {
     const router = useRouter();
     const [currentPage, setCurrentPage] = useState(parseInt(router.query.page, 10) || 0);
-    const numberOfPages = Math.ceil(albums.length / 15);
+    const [albums, setAlbums] = useState([]);
+    const [numberOfPages, setNumberOfPages] = useState(0);
+    const [query, setQuery] = useState(router.query.query || '');
+
+    useEffect(() => {
+        const fetchAlbums = async () => {
+            
+            try {
+                const response = await axios.get(`/search?query=${query}&page=${currentPage}`);
+                setAlbums(response.data.albums || []);
+                setNumberOfPages(Math.ceil(response.data.albums.length / 15));
+            } catch (error) {
+                console.error('Error fetching search results:', error);
+            }
+        };
+
+        // Only fetch albums if currentPage or query changes
+        if (currentPage !== parseInt(router.query.page, 10) || query !== router.query.query) {
+            fetchAlbums();
+        }
+    }, [currentPage, router.query.query, router.query.page]);
+
 
     const IndexPage = () => {
         let pageRefs = [];
@@ -77,29 +98,7 @@ const SearchResults = ({ albums, query }) => {
     );
 };
 
-export async function getServerSideProps(context) {
-    const query = context.params.query;
-    let albums = [];
 
-    // Extract cookies from the context
-    const cookies = context.req.headers.cookie || '';
-
-    try {
-        const response = await axios.get(`/search?query=${query}`, {
-            // Forward the cookies in the request
-            headers: {
-                Cookie: cookies
-            }
-        });
-        albums = response.data.albums || [];
-    } catch (error) {
-        console.error('Error fetching search results:', error);
-    }
-
-    return {
-        props: { albums, query },
-    };
-}
 
 
 export default SearchResults;
