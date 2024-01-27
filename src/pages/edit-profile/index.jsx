@@ -292,7 +292,7 @@ const EditProfilePage = ({ initialData }) => {
         deleteWindow && 
         <div className="fixed flex justify-center z-50 bg-black bg-opacity-[70%] w-full h-screen">
   <div className="absolute top-[10rem] gap-6 lg:gap-10 flex flex-col justify-center items-center bg-[#1B1E20] h-[15rem] w-[90%] lg:w-[35rem] rounded-[15px]">
-  <p>ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?</p>
+  <p className="font-bold text-center">ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?</p>
     <button onClick={()=>{handleDeleteAccount(); router.replace("explore")}} className="font-bold bg-green-500 w-[10rem] transition ease-in-out duration-[.3s]  hover:bg-green-600">CONFIRM</button>
     <button onClick={()=>setDeleteWindow(false)} className="font-bold bg-red-500 w-[10rem] hover:bg-red-600">CANCEL</button>
     </div>

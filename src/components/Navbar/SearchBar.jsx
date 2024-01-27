@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from 'next/router';
 
-const SearchBar = () => {
+const SearchBar = ({handleCurrentSearch}) => {
     const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
     
     const handleSearch = () => {
+        handleCurrentSearch(searchQuery);
         if (searchQuery.trim() !== "") {
           router.push(`/search/${encodeURIComponent(searchQuery)}`);
           setSearchQuery("");

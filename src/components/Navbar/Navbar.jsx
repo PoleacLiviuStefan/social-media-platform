@@ -23,6 +23,7 @@ const Navbar = () => {
   const [showProfileOptions, setShowProfileOptions] = useState(false);
   const [showFullSearch,setShowFullSearch] = useState(false);
   const [fullSearchHistory,setFullSearchHistory]=useState([])
+  const [historySearchDesktop,setHistorySearchDesktop]=useState(false);
 
   useEffect(() => {
     // Fetch the search history when the component mounts
@@ -39,7 +40,7 @@ const Navbar = () => {
     };
 
     fetchSearchHistory();
-  }, [showFullSearch]); // The empty dependency array ensures this runs once when the component mounts
+  }, []); // The empty dependency array ensures this runs once when the component mounts
 
 
   const handleDisconnect = async () => {
@@ -86,7 +87,10 @@ const handleDeleteHistoryItem = async (itemId) => {
   }
 };
 
-
+  const handleCurrentSearch = (currentSearch) =>{
+    if(fullSearchHistory.length<10)
+      setFullSearchHistory(prev=>[...prev,currentSearch])
+  }
   useEffect(() => {
     // This function will be called whenever the path changes.
     const handleRouteChange = () => {
@@ -111,7 +115,21 @@ const handleDeleteHistoryItem = async (itemId) => {
         >
           LOGO
         </Link>
-        <SearchBar />
+        <div onClick={()=>setHistorySearchDesktop(prev=>!prev)} className="relative flex flex-col ">
+        <SearchBar handleCurrentSearch={handleCurrentSearch} />
+        <ul className={`absolute top-[4rem] w-full shadow-xl ${!historySearchDesktop && "hidden"}`}>
+  {fullSearchHistory.map((historyItem, index) => (
+    <li key={index} className="relative flex items-center justify-between w-full bg-[#181818] cursor-pointer  rounded-[5px] px-4 py-2">
+      <span onClick={() => handleSearch(historyItem)}>{historyItem}</span>
+      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300" />
+      <button onClick={(event) => {
+        event.stopPropagation(); // Stop propagation here
+        handleDeleteHistoryItem(historyItem);
+      }} className="px-1 py-0 bg-[#181818] border-0 transition ease-in-out duration-[.3s] hover:border-0 hover:text-red-400">X</button>
+    </li>
+  ))}
+</ul>
+</div>
         <div className="flex items-center h-full gap-8 text-[14px] lg:text-[18px] w-[20%] lg:w-[10%]">
           {loading ? (
             <div>Loading...</div>
@@ -257,12 +275,12 @@ const handleDeleteHistoryItem = async (itemId) => {
           )
       }
     {showFullSearch ?
-    <div className='flex flex-col justify-start  items-center lg:hidden w-full h-full py-[2rem]'>
+    <div className='flex flex-col justify-start  items-start lg:hidden w-full h-full py-[2rem]'>
         <button onClick={()=>setShowFullSearch(false)} className='font-bold border-white border-[1px] border-[#eb9898]  px-8 text-[13px]'>CLOSE</button>
-            <SearchBar  />
-            <ul className="w-full">
+            <SearchBar  handleCurrentSearch={handleCurrentSearch} />
+            <ul className="flex flex-col justify-start w-full h-full">
   {fullSearchHistory.map((historyItem, index) => (
-    <li key={index} className="relative flex items-center justify-between w-full bg-black bg-black rounded-[5px] px-4 py-2">
+    <li key={index} className="relative flex items-center justify-between w-full cursor-pointer bg-black bg-black rounded-[5px] px-4 py-2">
       <span onClick={() => handleSearch(historyItem)}>{historyItem}</span>
       <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300" />
       <button onClick={(event) => {

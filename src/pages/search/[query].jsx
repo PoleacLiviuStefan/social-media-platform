@@ -13,9 +13,9 @@ const SearchResults = () => {
 
     useEffect(() => {
         const fetchAlbums = async () => {
-            
+            setQuery(router.query.query);
             try {
-                const response = await axios.get(`/search?query=${query}&page=${currentPage}`);
+                const response = await axios.get(`/search?query=${router.query.query}&page=${currentPage}`);
                 setAlbums(response.data.albums || []);
                 setNumberOfPages(Math.ceil(response.data.albums.length / 15));
             } catch (error) {

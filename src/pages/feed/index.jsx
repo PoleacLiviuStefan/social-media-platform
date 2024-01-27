@@ -4,12 +4,13 @@ import Media from "../../components/Media/Media"; // Adjust the import path as n
 import { useRouter } from 'next/router';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-const Feed = ({albums}) => {
+const Feed = () => {
 
   const router = useRouter();
   const currentPage = parseInt(router.query.page) || 1;
   const itemsPerPage = 15; // Assuming 15 albums per page
-  const numberOfPages = Math.ceil(albums.length / itemsPerPage);
+  const [albums,setAlbums]=useState([]);
+  const [numberOfPages,setNumberOfPages] = useState(0);
   const imageFormats = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'tiff', 'svg'];
   const videoFormats = ['mp4', 'mov', 'wmv', 'flv', 'avi', 'mkv', 'webm'];
 
@@ -17,6 +18,20 @@ const Feed = ({albums}) => {
   const isFileOfType = (fileName, formats) => {
     return formats.some(format => fileName.toLowerCase().endsWith(`.${format}`));
   };
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const response = await axios.get(`/getMediaFromFollowing`);
+        setAlbums(response.data.albums || []);
+        setNumberOfPages(Math.ceil(response.data.albums.length / itemsPerPage))
+      } catch (error) {
+        console.error('Error fetching albums:', error);
+      }
+  
+    };
+
+    fetchAlbums();
+  }, []); // Dependency array is empty, so this runs once on mount
   const IndexPage = () => {
     let pageLinks = [];
     for (let i = 0; i < numberOfPages; i++) {
@@ -33,25 +48,13 @@ const Feed = ({albums}) => {
     return pageLinks;
   };
 
-  useEffect(() => {
-    const fetchAlbums = async () => {
-      try {
-        const response = await axios.get(`/getMediaFromFollowing`);
-        setAlbums(response.data.albums || []);
-      } catch (error) {
-        console.error('Error fetching albums:', error);
-      }
-  
-    };
 
-    fetchAlbums();
-  }, []); // Dependency array is empty, so this runs once on mount
   return (
     <div className="flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
       <div className="flex flex-col w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
         <h1 className="text-[18px] lg:text-[28px] font-bold">FEED</h1>
         <div className="mt-[1rem] grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
-        {albums.map((album, index) => {
+        {albums?.map((album, index) => {
             // Filter images and videos based on defined formats
             const images = album.content.filter(file => isFileOfType(file.name, imageFormats));
             const videos = album.content.filter(file => isFileOfType(file.name, videoFormats));
@@ -72,7 +75,7 @@ const Feed = ({albums}) => {
           })}
         </div>
         {
-          albums.length!==0 ?    <div className={`flex items-center w-full justify-center mt-[2rem]  text-[26px] text-white `}>
+          albums?.length!==0 ?    <div className={`flex items-center w-full justify-center mt-[2rem]  text-[26px] text-white `}>
           <a
             onClick={() => {
               if (!(currentPage === 0 || currentPage === 1)) {
