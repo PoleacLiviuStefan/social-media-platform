@@ -276,7 +276,7 @@ const handleDeleteHistoryItem = async (itemId) => {
               className={`relative h-full ${showFullSearch && "hidden"}`}
               onClick={() => setShowSignInOptions(!showSignInOptions)}
             >
-              <button className={`flex items-center nowrap whitespace-nowrap text-[14px]  h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] bg-transparent hover:text-gray-400  `}>
+              <button className={`flex justify-start items-center nowrap whitespace-nowrap text-[14px] w-[8rem]  h-full gap-2 text-gray-300 cursor-pointer ease-in-out duration-[.3s] bg-transparent hover:text-gray-400  `}>
                 SIGN IN <FaChevronDown />
               </button>
               <div
@@ -327,10 +327,10 @@ const handleDeleteHistoryItem = async (itemId) => {
 </ul>
     </div>
             :
-            <button onClick={()=>setShowFullSearch(true)} className="flex  w-full  items-center gap-2"><FaSearch/> Search</button>
+            <button onClick={()=>setShowFullSearch(true)} className="flex  w-[8rem]  items-center gap-2"><FaSearch/> Search</button>
 
     }
-          <Link href="/explore" className={`${showFullSearch && "hidden"}`} >LOGO</Link>
+          <Link href="/explore" className={`flex justify-end ${showFullSearch && "hidden"} w-[8rem]`} >LOGO</Link>
       </div>
     </div>
   );
