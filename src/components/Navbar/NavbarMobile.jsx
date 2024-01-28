@@ -82,7 +82,7 @@ const NavbarMobile = ({ disconnectFunction }) => {
               onMouseLeave={() => {
                 setElementList(-1);
               }}
-              className="relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
+              className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
                 <div className="flex gap-2">
               <RiAccountCircleFill /> Profile{" "}
@@ -100,7 +100,7 @@ const NavbarMobile = ({ disconnectFunction }) => {
               onMouseLeave={() => {
                 setElementList(-1);
               }}
-              className="relative tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
+              className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
                 <div className="flex gap-2">
               <FiUpload/> Upload
@@ -122,7 +122,7 @@ const NavbarMobile = ({ disconnectFunction }) => {
               <button          onClick={()=>{
             router.push("/liked-albums")
             setShowMobileMenu(false);
-        }} className="relative  tracking-[4px] px-[.5rem]   py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden" >
+        }}     className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden" >
             <div className="flex gap-2">
                 <FaHeart /> Liked{" "}
                 </div>
@@ -133,7 +133,7 @@ const NavbarMobile = ({ disconnectFunction }) => {
               <button          onClick={()=>{
             router.push("/saved-albums")
             setShowMobileMenu(false);
-        }} className="relative  tracking-[4px] px-[.5rem]   py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden">
+        }}     className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden">
             <div className="flex gap-2">
                 <FaRegBookmark /> Saved{" "}
             </div>
