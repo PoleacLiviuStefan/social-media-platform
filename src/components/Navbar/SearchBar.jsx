@@ -15,7 +15,7 @@ const SearchBar = ({handleCurrentSearch}) => {
     };
 
     return (
-        <div  className='flex justify-center lg:items-center w-full h-full py-[2rem]'>
+        <div  className='flex justify-center lg:items-center w-full  py-[2rem]'>
             <div className="inline relative hidden lg:items-center lg:flex lg:w-[30rem]">
                 <button
                     onClick={handleSearch}

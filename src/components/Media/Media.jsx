@@ -101,11 +101,11 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
 )}
         <span className="absolute bottom-0 w-full h-[3rem] bg-gradient-to-b from-transparent to-black" />
         <div className="flex justify-between absolute bottom-2 w-[90%] text-white">
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <IoEyeSharp className="text-[18px] lg:text-[24px] dark:text-white" />
             <span className="font-bold">{viewsNumber}</span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             {photosNumber !== 0 && (
               <>
                 <MdOutlineInsertPhoto className="text-[18px] lg:text-[24px]" />

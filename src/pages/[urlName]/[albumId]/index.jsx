@@ -467,18 +467,10 @@ const MediaPage = ({ initialAlbumData }) => {
                   ref={(el) => (videoRefs.current[index] = el)}
                   src={`${SERVER_URL}/uploads/${vid.name}`}
                   className="cursor-pointer object-contain max-w-full max-h-[40rem]"
-                  controls
                   muted
                 />
               </Link>
-              {!playing[index] && (
-                <button
-                  className="absolute z-30 text-[120px] center hidden text-white"
-                  onClick={() => playVideo(index)}
-                >
-                  <FaPlay />
-                </button>
-              )}
+
             </div>
           ))}
 

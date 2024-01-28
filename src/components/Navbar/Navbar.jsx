@@ -42,6 +42,22 @@ const Navbar = () => {
     fetchSearchHistory();
   }, []); // The empty dependency array ensures this runs once when the component mounts
 
+  useEffect(() => {
+    // This function will be called whenever the path changes.
+    const handleRouteChange = () => {
+      setShowFullSearch(false);
+      setHistorySearchDesktop(false);  // Add this line to reset fullSearchHistory
+    };
+  
+    // Listen for route changes
+    router.events.on('routeChangeStart', handleRouteChange);
+  
+    // Clean up the event listener when the component unmounts
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router.events]);
+  
 
   const handleDisconnect = async () => {
     try {
@@ -88,7 +104,7 @@ const handleDeleteHistoryItem = async (itemId) => {
 };
 
   const handleCurrentSearch = (currentSearch) =>{
-    if(fullSearchHistory.length<10)
+    if(fullSearchHistory.length<10 && user)
       setFullSearchHistory(prev=>[...prev,currentSearch])
   }
   useEffect(() => {
@@ -121,7 +137,7 @@ const handleDeleteHistoryItem = async (itemId) => {
   {fullSearchHistory.map((historyItem, index) => (
     <li key={index} className="relative flex items-center justify-between w-full bg-[#181818] cursor-pointer  rounded-[5px] px-4 py-2">
       <span onClick={() => handleSearch(historyItem)}>{historyItem}</span>
-      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300" />
+      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-500" />
       <button onClick={(event) => {
         event.stopPropagation(); // Stop propagation here
         handleDeleteHistoryItem(historyItem);
@@ -280,13 +296,13 @@ const handleDeleteHistoryItem = async (itemId) => {
             <SearchBar  handleCurrentSearch={handleCurrentSearch} />
             <ul className="flex flex-col justify-start w-full h-full">
   {fullSearchHistory.map((historyItem, index) => (
-    <li key={index} className="relative flex items-center justify-between w-full cursor-pointer bg-black bg-black rounded-[5px] px-4 py-2">
+    <li key={index} className="relative flex items-center justify-between w-full cursor-pointer bg-[#181818] rounded-[5px] px-4 py-2">
       <span onClick={() => handleSearch(historyItem)}>{historyItem}</span>
-      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300" />
+      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-500" />
       <button onClick={(event) => {
         event.stopPropagation(); // Stop propagation here
         handleDeleteHistoryItem(historyItem);
-      }} className="px-1 py-0 bg-black">X</button>
+      }} className="px-1 py-0 bg-[#181818]">X</button>
     </li>
   ))}
 </ul>
