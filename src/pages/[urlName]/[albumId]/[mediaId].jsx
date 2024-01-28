@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
+import Link from "next/link";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { useRouter } from "next/router";
@@ -11,6 +12,14 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   const [mediaItem, setMediaItem] = useState(initialMediaItem);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const { SERVER_URL } = useContext(UserContext);
+  const [prevHref,setPrevHref]=useState(mediaItem.mediaIndex < mediaItem.contentCodes.length - 1
+    ? `/${urlName}/${albumId}/${
+        mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) + 1]
+      }`
+    : `/${urlName}/${albumId}`);
+  const [nextHref,setNextHref]=useState(mediaItem.mediaIndex < mediaItem.contentCodes.length - 1 
+    ? `/${urlName}/${albumId}/${mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) + 1]}`
+    : `/${urlName}/${albumId}/${mediaItem.contentCodes[0]}`);
 
   const videoFormats = ["mp4", "mov", "avi", "flv", "wmv", "mkv"];
   const isVideo = (fileName) => {
@@ -18,7 +27,36 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
       fileName?.toLowerCase().endsWith(`.${extension}`)
     );
   };
+  const handlePrevious = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    const newMediaId = mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) - 1];
+    if (0 < mediaItem.mediaIndex) {
+      fetchMediaItem(albumId, newMediaId); // Assuming this is an async function
+      setPrevHref(`/${urlName}/${albumId}/${newMediaId}`);
+      router.replace(`/${urlName}/${albumId}/${newMediaId}`)
+    } else {
+      setPrevHref(`/${urlName}/${albumId}`);
+      router.replace(`/${urlName}/${albumId}`)
+    }
+  };
+  const handleNext = (e)=>{
+    e.preventDefault(); // Prevent default link behavior
+    const nextIndex = parseInt(mediaItem.mediaIndex) + 1;
+    if (nextIndex < mediaItem.contentCodes.length) {
+      const newMediaId = mediaItem.contentCodes[nextIndex];
+      fetchMediaItem(albumId, newMediaId); // Assuming this is an async function
+      setNextHref(`/${urlName}/${albumId}/${newMediaId}`);
+      router.replace(`/${urlName}/${albumId}/${newMediaId}`)
+    } else {
+      // Navigate back to the album page at the end of the media items
+      fetchMediaItem(albumId, mediaItem.contentCodes[0]);
+      setNextHref(`/${urlName}/${albumId}/${mediaItem.contentCodes[0]}`);
+      router.replace(`/${urlName}/${albumId}/${mediaItem.contentCodes[0]}`)
+    }
+  }
 
+
+  
   const handleLike = async () => {
     try {
       const response = await axios.post(`/${albumId}/likeMedia/${mediaId}`);
@@ -44,13 +82,9 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   };
   const fetchMediaItem = async (albumId, mediaId) => {
     try {
-      const response = await axios.get(
-        `${albumId}/${mediaId}`
-      );
+      const response = await axios.get(`${albumId}/${mediaId}`);
       setMediaItem(response.data);
-      const likeResponse = await axios.get(
-        `${albumId}/${mediaId}/isLiked`
-      );
+      const likeResponse = await axios.get(`${albumId}/${mediaId}/isLiked`);
       setIsLiked(likeResponse.data.hasLiked);
     } catch (error) {
       console.error("Error fetching new media item:", error);
@@ -82,42 +116,32 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
 
           {/* Navigation and Like buttons here */}
           <div className="flex mt-[1rem] lg:mt-[3rem] justify-between w-full">
-            <button
-              onClick={() => {
-                const newMediaId =
-                  mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) - 1];
-                if (0 < mediaItem.mediaIndex) {
-                  fetchMediaItem(albumId, newMediaId);
-                  router.push(`/${urlName}/${albumId}/${newMediaId}`);
-                } else {
-                  router.push(`/${urlName}/${albumId}`);
-                }
-              }}
-              className="flex items-center gap-1 px-4 py-2 rounded-[8px] font-bold lg:text-[20px] transition ease-in-out duration-[.3s] bg-red-600 border-0 hover:bg-red-500 hover:border-0"
-            >
-              {mediaItem?.mediaIndex === 0 ? (
-                "Back To Album"
-              ) : (
-                <>
-                  <FaArrowAltCircleLeft className="lg:text-[26px]" /> Previous
-                </>
-              )}
-            </button>
-            <button
-  onClick={() => {
-    const nextIndex = parseInt(mediaItem.mediaIndex) + 1;
-    if (nextIndex < mediaItem.contentCodes.length) {
-      const newMediaId = mediaItem.contentCodes[nextIndex];
-      fetchMediaItem(albumId,newMediaId);
-    } else {
-      // Navigate back to the album page at the end of the media items
-      fetchMediaItem(albumId,mediaItem.contentCodes[0]);
-    }
-  }}
-  className="flex items-center gap-1 px-4 py-2 rounded-[8px] font-bold lg:text-[20px] transition ease-in-out duration-[.3s] bg-green-500 border-0 hover:bg-green-400 hover:border-0"
->
-  {mediaItem?.mediaIndex === mediaItem?.contentCodes.length - 1 ? "To the beginning" : <>Next <FaArrowAltCircleRight className="lg:text-[26px]" /></>}
-</button>
+            <Link href={prevHref} className="text-white hover:text-white">
+              <button onClick={handlePrevious} className="flex items-center gap-1 px-4 py-2 rounded-[8px] font-bold lg:text-[20px] transition ease-in-out duration-[.3s] bg-red-600 border-0 hover:bg-red-500 hover:border-0">
+                {mediaItem?.mediaIndex === 0 ? (
+                  "Back To Album"
+                ) : (
+                  <>
+                    <FaArrowAltCircleLeft className="lg:text-[26px]" /> Previous
+                  </>
+                )}
+              </button>
+            </Link>
+            <Link href={nextHref} className="text-white hover:text-white">
+              <button
+                onClick={handleNext}
+                className="flex items-center gap-1 px-4 py-2 rounded-[8px] font-bold lg:text-[20px] transition ease-in-out duration-[.3s] bg-green-500 border-0 hover:bg-green-400 hover:border-0"
+              >
+                {mediaItem?.mediaIndex ===
+                mediaItem?.contentCodes.length - 1 ? (
+                  "To the beginning"
+                ) : (
+                  <>
+                    Next <FaArrowAltCircleRight className="lg:text-[26px]" />
+                  </>
+                )}
+              </button>
+            </Link>
           </div>
           <span className="bg-white h-[1px] w-full opacity-[50%]" />
           <div
@@ -145,13 +169,10 @@ export async function getServerSideProps(context) {
   let initialIsLiked = false;
 
   try {
-    const mediaResponse = await axios.get(`${albumId}/${mediaId}`
-    );
+    const mediaResponse = await axios.get(`${albumId}/${mediaId}`);
     initialMediaItem = mediaResponse.data;
 
-    const likeResponse = await axios.get(
-      `${albumId}/${mediaId}/isLiked`
-    );
+    const likeResponse = await axios.get(`${albumId}/${mediaId}/isLiked`);
     initialIsLiked = likeResponse.data.hasLiked;
   } catch (error) {
     console.error("Error fetching media item and like status:", error);

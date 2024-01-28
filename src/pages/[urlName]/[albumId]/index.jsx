@@ -153,7 +153,7 @@ const MediaPage = ({ initialAlbumData }) => {
       await axios.delete(`/album/${albumId}`, {
         withCredentials: true,
       });
-      router.replace(userName); // Redirect to home page or another appropriate page after deletion
+      router.replace(`/${userName}`); // Redirect to home page or another appropriate page after deletion
     } catch (error) {
       console.error("Error deleting album:", error);
       // Handle error (e.g., show a notification to the user)

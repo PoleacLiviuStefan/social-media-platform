@@ -234,7 +234,7 @@ const handleDeleteHistoryItem = async (itemId) => {
                 SIGN IN <FaChevronDown />
               </a>
               <div
-                className={`flex flex-col justify-between h-[18rem] bg-[#181818] ${
+                className={`flex flex-col justify-between h-[12rem] bg-[#181818] ${
                   !showSignInOptions && "hidden"
                 } text-white`}
               >
@@ -243,9 +243,7 @@ const handleDeleteHistoryItem = async (itemId) => {
                     <FaGoogle />
                     Google
                   </li>
-                  <li onClick={handleSignInReddit} className="flex items-center gap-2 cursor-pointer p-4">
-                    <FaReddit /> Reddit
-                  </li>
+
                   <li onClick={handleSignInTwitter} className="flex items-center gap-2 cursor-pointer p-4">
                     <FaTwitter />
                     Twitter
@@ -280,7 +278,7 @@ const handleDeleteHistoryItem = async (itemId) => {
                 SIGN IN <FaChevronDown />
               </button>
               <div
-                className={`flex flex-col justify-between  h-[18rem] bg-[#181818] ${
+                className={`flex flex-col justify-between  h-[12rem] bg-[#181818] ${
                   !showSignInOptions && "hidden"
                 } text-white`}
               >
@@ -289,9 +287,7 @@ const handleDeleteHistoryItem = async (itemId) => {
                     <FaGoogle />
                     Google
                   </li>
-                  <li onClick={handleSignInReddit} className="flex items-center gap-2 cursor-pointer p-4">
-                    <FaReddit /> Reddit
-                  </li>
+
                   <li onClick={handleSignInTwitter} className="flex items-center gap-2 cursor-pointer p-4">
                     <FaTwitter />
                     Twitter
