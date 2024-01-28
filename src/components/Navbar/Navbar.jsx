@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect,useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -24,6 +24,7 @@ const Navbar = () => {
   const [showFullSearch,setShowFullSearch] = useState(false);
   const [fullSearchHistory,setFullSearchHistory]=useState([])
   const [historySearchDesktop,setHistorySearchDesktop]=useState(false);
+  const desktopSearch = useRef();
 
   useEffect(() => {
     // Fetch the search history when the component mounts
@@ -42,6 +43,23 @@ const Navbar = () => {
     fetchSearchHistory();
   }, []); // The empty dependency array ensures this runs once when the component mounts
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (desktopSearch.current && !desktopSearch.current.contains(event.target)) {
+        setHistorySearchDesktop(false);
+      }
+    };
+
+    // Attach the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [desktopSearch]);
+
+  
   useEffect(() => {
     // This function will be called whenever the path changes.
     const handleRouteChange = () => {
@@ -131,7 +149,7 @@ const handleDeleteHistoryItem = async (itemId) => {
         >
           LOGO
         </Link>
-        <div onClick={()=>setHistorySearchDesktop(prev=>!prev)} className="relative flex flex-col ">
+        <div ref={desktopSearch} onClick={()=>setHistorySearchDesktop(prev=>!prev)} className="relative flex flex-col ">
         <SearchBar handleCurrentSearch={handleCurrentSearch} />
         <ul className={`absolute top-[4rem] w-full shadow-xl ${!historySearchDesktop && "hidden"}`}>
   {fullSearchHistory.map((historyItem, index) => (
