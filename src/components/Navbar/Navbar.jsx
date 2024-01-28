@@ -128,6 +128,7 @@ const handleDeleteHistoryItem = async (itemId) => {
   useEffect(() => {
     // This function will be called whenever the path changes.
     const handleRouteChange = () => {
+      setHistorySearchDesktop(false);
       setShowFullSearch(false);
     };
 
