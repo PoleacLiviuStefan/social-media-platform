@@ -19,6 +19,7 @@ const Feed = () => {
     return formats.some(format => fileName.toLowerCase().endsWith(`.${format}`));
   };
   useEffect(() => {
+    window.scrollTo({top:0,left:0})
     const fetchAlbums = async () => {
       try {
         const response = await axios.get(`/getMediaFromFollowing`);

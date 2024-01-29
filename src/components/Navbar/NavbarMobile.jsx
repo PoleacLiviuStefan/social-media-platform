@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { BsInstagram } from "react-icons/bs";
 import { UserContext } from "../../UserContext"; // Adjust this path to your UserContext location
-
+import Link from "next/link";
 import axios from "axios";
 import {
   FaSearch, FaChevronDown, FaGoogle, FaReddit, FaTwitter, FaRegBookmark, FaBell,
@@ -70,10 +70,9 @@ const NavbarMobile = ({ disconnectFunction }) => {
       >
         <div className=" mt-[2rem] flex flex-col overflow-hidden">
        
-
+        <Link href={`/${user.name}`} className="text-white hover:text-white">
             <button
               onClick={() => {
-                router.push(`/${user.name}`);
                 setShowMobileMenu(false);
               }}
               onMouseEnter={() => {
@@ -88,7 +87,8 @@ const NavbarMobile = ({ disconnectFunction }) => {
               <RiAccountCircleFill /> Profile{" "}
                 </div>
             </button>
-
+            </Link>
+            <Link href="/upload" className="text-white hover:text-white">
             <button
               onClick={() => {
                 router.push("/upload");
@@ -106,10 +106,10 @@ const NavbarMobile = ({ disconnectFunction }) => {
               <FiUpload/> Upload
                 </div>
             </button>
+            </Link>
 
-     
+            <Link href="/feed" className="text-white hover:text-white">
               <button         onClick={()=>{
-                router.push("/feed")
                 setShowMobileMenu(false);
             }}  className=" relative tracking-[5px] px-[.5rem]  py-[1.5rem] flex bg-[#181818] whitespace-nowrap overflow-hidden">
                 <div className="flex gap-2">
@@ -117,21 +117,18 @@ const NavbarMobile = ({ disconnectFunction }) => {
                 </div>
 
               </button>
-          
-
+          </Link>
+          <Link href="/liked-albums" className="text-white hover:text-white">
               <button          onClick={()=>{
-            router.push("/liked-albums")
             setShowMobileMenu(false);
         }}     className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden" >
             <div className="flex gap-2">
                 <FaHeart /> Liked{" "}
                 </div>
-
-  
               </button>
-
+              </Link>
+              <Link href="/saved-albums" className="text-white hover:text-white">
               <button          onClick={()=>{
-            router.push("/saved-albums")
             setShowMobileMenu(false);
         }}     className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden">
             <div className="flex gap-2">
@@ -139,9 +136,10 @@ const NavbarMobile = ({ disconnectFunction }) => {
             </div>
   
               </button>
-
+              </Link>
+              <Link href="/notifications" className="text-white hover:text-white">
             <button
-              onClick={() =>{router.push("/notifications"); setShowMobileMenu(false);}}
+              onClick={() =>{ setShowMobileMenu(false);}}
 
               className="flex items-center relative  tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
@@ -156,9 +154,10 @@ const NavbarMobile = ({ disconnectFunction }) => {
                 } bottom-5 left-0 w-full h-[1px] bg-black`}
               />
             </button>
-
+            </Link>
+            <Link href="/edit-profile" className="text-white hover:text-white">
             <button
-              onClick={() =>{router.push("/edit-profile"); setShowMobileMenu(false);}}
+              onClick={() =>{ setShowMobileMenu(false);}}
 
               className="flex items-center   relative tracking-[4px] px-[.5rem]  py-[1.5rem] bg-[#181818] whitespace-nowrap overflow-hidden"
             >
@@ -173,6 +172,8 @@ const NavbarMobile = ({ disconnectFunction }) => {
                 } bottom-5 left-0 w-full h-[1px] bg-black`}
               />
             </button>
+            </Link>
+            
             <button
               onClick={disconnectFunction}
 

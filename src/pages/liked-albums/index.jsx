@@ -20,6 +20,7 @@ const LikedAlbums = () => {
   const videoFormats = [".mp4", ".webm", ".avi", ".mov", ".flv", ".mkv"]; // Add more as needed
 
   useEffect(() => {
+    window.scrollTo({top:0,left:0})
     const fetchLikedAlbums = async () => {
       try {
         const response = await axios.get(`/getLikedAlbums`, {

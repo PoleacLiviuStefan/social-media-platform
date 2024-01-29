@@ -6,6 +6,7 @@ const SavedAlbums = () => {
     const [albums, setAlbums] = useState([]);
 
     useEffect(() => {
+        window.scrollTo({top:0,left:0})
         const fetchSavedAlbums = async () => {
             try {
                 const response = await axios.get('/getSavedAlbums', {

@@ -8,7 +8,7 @@ import { UserContext } from "../../UserContext";
 
 
 const Spinner = () => (
-  <div className="w-[9.5rem] lg:w-[15rem] h-[7rem] lg:h-[10rem] border-white border-[1px]"></div>
+  <div className="w-[10rem] lg:w-[15rem] h-[7rem] lg:h-[10rem] border-white border-[1px]"></div>
 );
 
 const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNumber = 0, videosNumber = false, photosNumber = false }) => {
@@ -38,12 +38,13 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
   };
 
   return (
-    <div className=" w-[9.5rem] lg:w-[15rem] h-[13rem]">
+    <div className=" w-[10rem] lg:max-w-[15rem] h-[13rem]">
       <Link href={navigateTo}>
       <div
         onMouseOver={() => setIsPreviewed(true)}
         onMouseOut={() => setIsPreviewed(false)}
-        className="relative flex cursor-pointer justify-center h-[9rem] w-[9.5rem] lg:w-[15rem] lg:h-[10rem] border-[1px] border-white"
+        onClick={()=>window.scrollTo({top:0,left:0})}
+        className="relative flex cursor-pointer justify-center h-[9rem] w-[10rem] lg:w-[15rem] lg:h-[10rem] border-[1px] border-white"
       >
         {isLoading && <Spinner />}
         {isVideoFormat(thumbnail[currentThumbnail]?.name) ? (
@@ -85,7 +86,7 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
         </div>
       </div>
       </Link>
-      <div className="flex items-center mt-2 w-[9.5rem] lg:w-[15rem]">
+      <div className="flex items-center mt-2 w-[10rem] lg:w-[15rem]">
         {
           userImage ?
           <img onClick={() => router.push(`/${userName}`)} src={userImage.includes("google") ? userImage : `${SERVER_URL}/uploads/${userImage}`} className="rounded-[50%] w-[35px] h-[35px] cursor-pointer" alt={userName} />

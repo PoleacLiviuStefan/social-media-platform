@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
     // Check if the current path is the homepage ('/')
+    window.scrollTo({top:0,left:0})
     if (router.pathname === '/') {
       // Navigate to the '/explore' route
       router.replace('/explore');

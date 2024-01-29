@@ -453,8 +453,8 @@ const MediaPage = ({ initialAlbumData }) => {
               className="relative flex items-center justify-center w-full lg:h-[40rem] lg:bg-black"
             >
               <Link href={`/${userName}/${album.code}/${vid.code}`}>
-                <img src={`${SERVER_URL}/uploads/${vid.videoThumbnail}`} />
-                <div className="absolute top-0 h-full w-full flex items-center justify-center">
+                <img src={`${SERVER_URL}/uploads/${vid.videoThumbnail}`} className="max-h-[40rem]" />
+                <div className="absolute left-0 top-0 h-full w-full flex items-center justify-center">
                   <span className="flex justify-center items-center bg-black bg-opacity-[60%] p-12 rounded-[50%]">
                     <FaPlay className="ml-2  text-[42px] lg:text-[64px] text-white  " />
                   </span>
@@ -464,7 +464,7 @@ const MediaPage = ({ initialAlbumData }) => {
           ))}
 
         <div className="flex flex-col">
-          <h2 className="mb-4 flex items-center gap-2 text-[18px] lg:text-[28px] text-gray-300">
+          <h2 className="my-4 flex items-center gap-2 text-[18px] lg:text-[28px] text-gray-300">
             <CiChat2 className="text-[48px] " />
             Comments
           </h2>

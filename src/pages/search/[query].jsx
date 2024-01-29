@@ -12,6 +12,7 @@ const SearchResults = () => {
     const [query, setQuery] = useState(router.query.query || '');
 
     useEffect(() => {
+        window.scrollTo({top:0,left:0})
         const fetchAlbums = async () => {
             setQuery(router.query.query);
             try {

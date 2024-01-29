@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useRef,useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaPlay } from "react-icons/fa";
+
 import { CiHeart } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { UserContext } from "../../../UserContext"; // Update the import path as needed
@@ -11,6 +12,7 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   const { urlName, albumId, mediaId } = router.query;
   const [mediaItem, setMediaItem] = useState(initialMediaItem);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
+  const [isPlaying, setIsPlaying] = useState(false);
   const { SERVER_URL } = useContext(UserContext);
   const [prevHref,setPrevHref]=useState(mediaItem?.mediaIndex < mediaItem?.contentCodes.length - 1
     ? `/${urlName}/${albumId}/${
@@ -27,6 +29,21 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
       fileName?.toLowerCase().endsWith(`.${extension}`)
     );
   };
+
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (isPlaying && videoRef.current) {
+      videoRef.current.play();
+    } else if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   const handlePrevious = (e) => {
     e.preventDefault(); // Prevent default link behavior
     const newMediaId = mediaItem?.contentCodes[parseInt(mediaItem?.mediaIndex) - 1];
@@ -98,11 +115,22 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
           {mediaItem ? (
             <div>
               {isVideo(mediaItem?.mediaItem.name) ? (
+                          <div
+           
+                          className="relative flex items-center justify-center w-full lg:h-[40rem] lg:bg-black"
+                        >
                 <video
+                  ref={videoRef}
                   src={`${SERVER_URL}/uploads/${mediaItem?.mediaItem.name}`}
                   controls
                   muted
                 />
+                <div onClick={togglePlay} className={`absolute left-0 top-0 h-full w-full flex items-center justify-center ${isPlaying && "hidden"}`}>
+                <span className="flex justify-center items-center bg-black bg-opacity-[60%] p-12 rounded-[50%]">
+                  <FaPlay className="ml-2  text-[42px] lg:text-[64px] text-white  " />
+                </span>
+              </div>
+              </div>
               ) : (
                 <img
                   src={`${SERVER_URL}/uploads/${mediaItem?.mediaItem.name}`}
