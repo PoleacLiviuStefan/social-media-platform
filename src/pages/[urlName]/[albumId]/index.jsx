@@ -15,7 +15,7 @@ import { CiHeart, CiChat2, CiBookmark } from "react-icons/ci";
 import Media from "../../../components/Media/Media"; // Update path as needed
 import { UserContext } from "../../../UserContext"; // Update path as needed
 import Link from "next/link";
-import { generateVideoThumbnailViaUrl } from "@rajesh896/video-thumbnails-generator";
+
 
 const MediaPage = ({ initialAlbumData }) => {
   const router = useRouter();
@@ -25,7 +25,6 @@ const MediaPage = ({ initialAlbumData }) => {
   const [album, setAlbum] = useState(initialAlbumData.album);
   const [userName, setUserName] = useState(initialAlbumData.userName);
   const [userImage, setUserImage] = useState(initialAlbumData.userImage);
-  const videoRefs = useRef([]);
   const [playing, setPlaying] = useState([]);
   const [commentInput, setCommentInput] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -80,8 +79,6 @@ const MediaPage = ({ initialAlbumData }) => {
           albumResponse.data.album.content.filter((file) =>
             file.name.endsWith(".mp4")
           ) || [];
-        setPlaying(Array(videoMaterial?.length).fill(false));
-        videoRefs.current = videoMaterial?.map(() => React.createRef());
         setNumberOfLikes(albumResponse.data.album.likes);
         setViewsNumber(albumResponse.data.album.views);
         setNumberOfReposts(albumResponse.data.album.reposts);
