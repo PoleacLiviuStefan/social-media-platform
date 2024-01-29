@@ -12,14 +12,14 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   const [mediaItem, setMediaItem] = useState(initialMediaItem);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const { SERVER_URL } = useContext(UserContext);
-  const [prevHref,setPrevHref]=useState(mediaItem.mediaIndex < mediaItem.contentCodes.length - 1
+  const [prevHref,setPrevHref]=useState(mediaItem?.mediaIndex < mediaItem?.contentCodes.length - 1
     ? `/${urlName}/${albumId}/${
-        mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) + 1]
+        mediaItem?.contentCodes[parseInt(mediaItem?.mediaIndex) + 1]
       }`
     : `/${urlName}/${albumId}`);
-  const [nextHref,setNextHref]=useState(mediaItem.mediaIndex < mediaItem.contentCodes.length - 1 
-    ? `/${urlName}/${albumId}/${mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) + 1]}`
-    : `/${urlName}/${albumId}/${mediaItem.contentCodes[0]}`);
+  const [nextHref,setNextHref]=useState(mediaItem?.mediaIndex < mediaItem?.contentCodes.length - 1 
+    ? `/${urlName}/${albumId}/${mediaItem?.contentCodes[parseInt(mediaItem?.mediaIndex) + 1]}`
+    : `/${urlName}/${albumId}/${mediaItem?.contentCodes[0]}`);
 
   const videoFormats = ["mp4", "mov", "avi", "flv", "wmv", "mkv"];
   const isVideo = (fileName) => {
@@ -29,8 +29,8 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   };
   const handlePrevious = (e) => {
     e.preventDefault(); // Prevent default link behavior
-    const newMediaId = mediaItem.contentCodes[parseInt(mediaItem.mediaIndex) - 1];
-    if (0 < mediaItem.mediaIndex) {
+    const newMediaId = mediaItem?.contentCodes[parseInt(mediaItem?.mediaIndex) - 1];
+    if (0 < mediaItem?.mediaIndex) {
       fetchMediaItem(albumId, newMediaId); // Assuming this is an async function
       setPrevHref(`/${urlName}/${albumId}/${newMediaId}`);
       router.replace(`/${urlName}/${albumId}/${newMediaId}`)
@@ -41,17 +41,17 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
   };
   const handleNext = (e)=>{
     e.preventDefault(); // Prevent default link behavior
-    const nextIndex = parseInt(mediaItem.mediaIndex) + 1;
-    if (nextIndex < mediaItem.contentCodes.length) {
-      const newMediaId = mediaItem.contentCodes[nextIndex];
+    const nextIndex = parseInt(mediaItem?.mediaIndex) + 1;
+    if (nextIndex < mediaItem?.contentCodes.length) {
+      const newMediaId = mediaItem?.contentCodes[nextIndex];
       fetchMediaItem(albumId, newMediaId); // Assuming this is an async function
       setNextHref(`/${urlName}/${albumId}/${newMediaId}`);
       router.replace(`/${urlName}/${albumId}/${newMediaId}`)
     } else {
       // Navigate back to the album page at the end of the media items
-      fetchMediaItem(albumId, mediaItem.contentCodes[0]);
-      setNextHref(`/${urlName}/${albumId}/${mediaItem.contentCodes[0]}`);
-      router.replace(`/${urlName}/${albumId}/${mediaItem.contentCodes[0]}`)
+      fetchMediaItem(albumId, mediaItem?.contentCodes[0]);
+      setNextHref(`/${urlName}/${albumId}/${mediaItem?.contentCodes[0]}`);
+      router.replace(`/${urlName}/${albumId}/${mediaItem?.contentCodes[0]}`)
     }
   }
 
@@ -97,16 +97,16 @@ const SingleMedia = ({ initialMediaItem, initialIsLiked }) => {
         <div className="flex flex-col items-center w-full h-full bg-[#111314] p-12 gap-4 rounded-[15px]">
           {mediaItem ? (
             <div>
-              {isVideo(mediaItem.mediaItem.name) ? (
+              {isVideo(mediaItem?.mediaItem.name) ? (
                 <video
-                  src={`${SERVER_URL}/uploads/${mediaItem.mediaItem.name}`}
+                  src={`${SERVER_URL}/uploads/${mediaItem?.mediaItem.name}`}
                   controls
                   muted
                 />
               ) : (
                 <img
-                  src={`${SERVER_URL}/uploads/${mediaItem.mediaItem.name}`}
-                  alt={mediaItem.mediaItem.name}
+                  src={`${SERVER_URL}/uploads/${mediaItem?.mediaItem.name}`}
+                  alt={mediaItem?.mediaItem.name}
                 />
               )}
             </div>

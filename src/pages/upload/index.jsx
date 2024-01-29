@@ -173,6 +173,8 @@ const Upload = () => {
                     "video/ogg",
                     "video/avi",
                     "video/mov",
+                    "video/flv",
+                    "video/mkv"
                   ].includes(files[index].type) ? (
                     <div className=" h-[14rem] bg-black flex items-center justify-center">
                       <video

@@ -15,6 +15,7 @@ import { CiHeart, CiChat2, CiBookmark } from "react-icons/ci";
 import Media from "../../../components/Media/Media"; // Update path as needed
 import { UserContext } from "../../../UserContext"; // Update path as needed
 import Link from "next/link";
+import { generateVideoThumbnailViaUrl } from "@rajesh896/video-thumbnails-generator";
 
 const MediaPage = ({ initialAlbumData }) => {
   const router = useRouter();
@@ -163,16 +164,6 @@ const MediaPage = ({ initialAlbumData }) => {
   useEffect(() => {
     fetchComments();
   }, [albumId]);
-
-  const playVideo = (index) => {
-    const video = videoRefs.current[index];
-    if (video) {
-      video?.play();
-      const updatedPlaying = playing.slice(); // Copy the playing array
-      updatedPlaying[index] = true; // Update the playing status for the clicked video
-      setPlaying(updatedPlaying); // Set the new playing status
-    }
-  };
 
   const handleLike = async () => {
     setCurrentUserLiked((prev) => !prev);
@@ -448,7 +439,7 @@ const MediaPage = ({ initialAlbumData }) => {
               <Link href={`/${userName}/${album.code}/${img.code}`}>
                 <img
                   src={`${SERVER_URL}/uploads/${img.name}`}
-                  className="cursor-pointer object-contain max-w-full max-h-full"
+                  className="cursor-pointer object-contain max-w-full max-h-[40rem]"
                   alt={`Image ${index}`}
                 />
               </Link>
@@ -456,22 +447,22 @@ const MediaPage = ({ initialAlbumData }) => {
           </>
         ))}
         {content
-          .filter((file) => file.name.match(/\.(mp4|mov|avi|flv|wmv)$/i)) // Filters for multiple video formats
+          .filter((file) =>
+            file.name.match(/\.(mp4|mov|avi|flv|wmv|mkv|webm)$/i)
+          ) // Filters for multiple video formats
           .map((vid, index) => (
             <div
               key={index}
-              className="flex items-center justify-center w-full lg:h-[40rem] lg:bg-black"
+              className="relative flex items-center justify-center w-full lg:h-[40rem] lg:bg-black"
             >
               <Link href={`/${userName}/${album.code}/${vid.code}`}>
-                <video
-                  ref={(el) => (videoRefs.current[index] = el)}
-                  src={`${SERVER_URL}/uploads/${vid.name}`}
-                  className="cursor-pointer object-contain max-w-full max-h-[40rem]"
-                  controls
-                  muted
-                />
+                <img src={`${SERVER_URL}/uploads/${vid.videoThumbnail}`} />
+                <div className="absolute top-0 h-full w-full flex items-center justify-center">
+                  <span className="flex justify-center items-center bg-black bg-opacity-[60%] p-12 rounded-[50%]">
+                    <FaPlay className="ml-2  text-[42px] lg:text-[64px] text-white  " />
+                  </span>
+                </div>
               </Link>
-
             </div>
           ))}
 

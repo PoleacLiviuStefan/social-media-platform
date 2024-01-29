@@ -11,44 +11,6 @@ const Spinner = () => (
   <div className="w-[9.5rem] lg:w-[15rem] h-[7rem] lg:h-[10rem] border-white border-[1px]"></div>
 );
 
-const VideoThumbnail = ({ src, onLoad }) => {
-  const videoRef = useRef();
-
-  useEffect(() => {
-    const videoElement = videoRef.current;
-
-    if (videoElement) {
-        // Play the video
-        videoElement.play().then(() => {
-            // Video is playing
-        }).catch(error => {
-            // Autoplay was prevented or failed
-            // You can show a play button or handle this scenario appropriately
-        });
-
-        // Optional: Pause after a certain duration
-        const pauseTimeout = setTimeout(() => {
-            videoElement.pause();
-        }, 1000);
-
-        return () => clearTimeout(pauseTimeout);
-    }
-}, [src]);
-
-
-  return (
-    <video
-      ref={videoRef}
-      src={src}
-      onLoadStart={onLoad}
-      className="w-full p-[1px] h-full border-none"
-      muted
-      loop
-      playsInline
-    />
-  );
-};
-
 const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNumber = 0, videosNumber = false, photosNumber = false }) => {
   const router = useRouter();
   const [currentThumbnail, setCurrentThumbnail] = useState(0);
@@ -85,10 +47,11 @@ const Media = ({ navigateTo, thumbnail, userName, userImage, videoTitle, viewsNu
       >
         {isLoading && <Spinner />}
         {isVideoFormat(thumbnail[currentThumbnail]?.name) ? (
-     <VideoThumbnail
-       src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.name}`}
+     <img
+       src={`${SERVER_URL}/uploads/${thumbnail[currentThumbnail]?.videoThumbnail}`}
        className="h-full w-full"
        onLoad={handleImageLoad}
+       alt="video"
      />
    ) : (
      <img
