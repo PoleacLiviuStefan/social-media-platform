@@ -72,14 +72,6 @@ const Explore = ({ albums, currentPage, topUsers }) => {
               NEW
             </Link>
           </li>
-          <li className="flex flex-col">
-            <Link
-              href="/dmca-contact"
-              className="text-white cursor-pointer hover:text-white px-4 rounded-[5px]"
-            >
-              DMCA/CONTACT
-            </Link>
-          </li>
         </ul>
         <div className="grid justify-items-center grid-cols-2 md:grid-cols-4  xl:grid-cols-5 items-center gap-4 lg:gap-6 xl:gap-10 justify-center flex-wrap w-full">
           {currentAlbums?.map((album, index) => {
