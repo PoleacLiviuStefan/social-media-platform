@@ -6,7 +6,7 @@ export const UserContext = createContext({});
 export function UserContextProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const SERVER_URL="https://www.api.waygital.ro"; //http://localhost:3001
+    const SERVER_URL="https://backend-social.netlify.app"; //http://localhost:3001
     useEffect(() => {
         const fetchUser = async () => {
             try {
