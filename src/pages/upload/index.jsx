@@ -70,46 +70,7 @@ const Upload = () => {
 
   return (
     <div className="relative flex flex-col items-center min-w-screen w-full min-h-screen h-full font-montSerrat bg-[#1b1e20]">
-      {showRules && (
-        <div className="absolute flex justify-center items-center w-screen h-screen backdrop-blur-md z-50">
-          <div className="flex flex-col justify-center items-center bg-[#111314] w-[90%] lg:w-[30rem] h-[35rem] lg:h-[45rem] rounded-[15px] shadow-[5px_5px_38px_12px_rgba(255,255,255,0.14)] gap-4 text-[12px] lg:text-[15px]">
-            <p className="w-[80%] text-gray-300">
-              You are not allowed to upload
-            </p>
-            <p className="w-[80%] text-gray-300">
-              - Copyright <br /> Content you do not have the rights to display.</p>
-              <p className="w-[80%] text-gray-300">
-               - Age
-               <br/>
-              minor appearance of a minor situation or title that makes the
-              person look like a minor representation of a minor (drawing,
-              hentai...) 
-              </p>
-              <p className="w-[80%] text-gray-300">
-              - Doxing <br/>
-              IDs <br/>
-              full name (not famous)<br/>
-              social media (not famous)<br/>
-              work info <br/>
-              address<br/>
-              revenge porn is strictly forbidden <br/>
-               - Zoo/animal<br/>
-              - Real violence<br/>
-              - Excrement<br/> 
-              - Advertising <br/>
-               No mention of
-              the full version available elsewhere, for example on your profile
-              or on a website.
-            </p>
-            <button
-              onClick={() => setShowRules(false)}
-              className="mt-[1rem] bg-[#1B1E20] rounded-[8px] px-4 py-2 ease-in-out duration-[.3s] border-white border-[1px] hover:border-white hover:text-[#EB9898] hover:border-[#EB9898]"
-            >
-              I UNDERSTAND
-            </button>
-          </div>
-        </div>
-      )}
+ 
       <div className="flex flex-col items-center w-[90%] lg:w-[65rem] xl:w-[76rem] py-[4rem] lg:py-[8rem]">
         <form
           className="flex flex-col justify-center items-center w-full h-full"
