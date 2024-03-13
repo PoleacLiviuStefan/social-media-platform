@@ -61,7 +61,7 @@ const ExploreNew = ({ albums, currentPage, topUsers }) => {
             href="/explore"
             className="text-white cursor-pointer hover:text-white px-4  rounded-[5px]"
           >
-            HOT
+            TRENDING
           </Link>
         </li>
         <li className="flex flex-col">

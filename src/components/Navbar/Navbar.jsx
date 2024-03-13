@@ -148,7 +148,7 @@ const handleDeleteHistoryItem = async (itemId) => {
           href="/explore" 
           className="text-gray-300 text-[16px] lg:text-[22px] cursor-pointer ease-in-out duration-[.3s]"
         >
-          LOGO
+          YOURSOCIAL
         </Link>
         <div ref={desktopSearch} onClick={()=>setHistorySearchDesktop(prev=>!prev)} className="relative flex flex-col ">
         <SearchBar handleCurrentSearch={handleCurrentSearch} />
@@ -326,7 +326,7 @@ const handleDeleteHistoryItem = async (itemId) => {
             <button onClick={()=>setShowFullSearch(true)} className="flex  w-[8rem]  items-center gap-2"><FaSearch/> Search</button>
 
     }
-          <Link href="/explore" className={`flex justify-end ${showFullSearch && "hidden"} w-[8rem]`} >LOGO</Link>
+          <Link href="/explore" className={`flex justify-end ${showFullSearch && "hidden"} w-[8rem]`} >YOURSOCIAL</Link>
       </div>
     </div>
   );
